@@ -66,8 +66,8 @@
 @section("bottom-script")
 
     <script type="text/html" id="barDemo">
-        <div class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">查看</div>
-        <div class="layui-btn layui-btn-xs" lay-event="add">新建课程条目</div>
+        <div class="layui-btn layui-btn-primary layui-btn-xs" lay-event="view">查看条目</div>
+        <div class="layui-btn layui-btn-xs" lay-event="add">课程条目</div>
         <div class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</div>
     </script>
 
@@ -140,6 +140,27 @@
             table.on('tool(courses)',function(obj){
                 console.log(obj)
                 switch(obj.event){
+                    case 'view':
+                        var that = this;
+                        var objx = obj;
+                        //多窗口模式，层叠置顶
+                        layer.open({
+                            type: 2 //此处以iframe举例
+                            ,title: '课程条目查看'
+                            ,area: ['1024px', '600px']
+                            ,shade: 1
+                            ,maxmin: true
+                            ,content: '{{action("Admin\CourseItemController@index")}}?course='+objx.data.id+"&bb=true"
+                            ,btn: ['全部关闭'] //只是为了演示
+                            ,yes: function(){
+                                  layer.closeAll();
+                            }
+                            ,zIndex: layer.zIndex //重点1
+                            ,success: function(layero){
+                                layer.setTop(layero); //重点2
+                            }
+                        });
+                        break;
                     case 'add':
                         layer.msg('添加');
                         break;

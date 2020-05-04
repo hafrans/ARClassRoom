@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CourseItem;
+use App\Http\Resources\CourseItemResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -29,13 +31,9 @@ class HomeController extends Controller
 
 
     public function test(Request $req){
-        Storage::disk("s3")->put("/name.txt","Hello Wolrd");
-        $url = Storage::disk("s3")->temporaryUrl(
-            'name.txt', now()->addMinutes(5)
-        );
 
-        $url2 = Storage::disk("s3")->url("name.txt");
-        return [$url,$url2];
+        return response()->json([CourseItemResource::collection(\App\CourseItem::all())]);
+
     }
 
 

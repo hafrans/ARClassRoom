@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Course;
 use App\CourseItem;
+use App\Http\Resources\CourseItemResource;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -11,11 +13,40 @@ class CourseItemController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $req)
     {
         //
+        if(!$req->has("course")){
+            abort("500","No Course Provided.");
+        }
+        if($req->ajax()){
+            $course = Course::find($req->course);
+            if ($course == null){
+                return response()->json([
+                    "code" => 0,
+                    "msg" => 'empty',
+                    "count" => 0,
+                    "data" => []
+                ]);
+            }// null
+
+            $query = CourseItem::where("course_id",$course->id);
+            if($req->has("name")){
+                $query = $query->whereRaw("name like ?","%".$req->name."%");
+            }
+            $paginated = $query->paginate(20);
+            $item = CourseItemResource::collection($paginated);
+
+            return response()->json([
+                "code" => 0,
+                "msg" => 'OK',
+                "count" => $paginated->total(),
+                "data" => $item
+            ]);
+        }
+        return view("admin.courseitem.index");
     }
 
     /**
@@ -81,6 +112,23 @@ class CourseItemController extends Controller
      */
     public function destroy(CourseItem $courseItem)
     {
-        //
+        try{
+            if($courseItem->delete()){
+                return response()->json([
+                    "code"=>0,
+                    "message" => "success",
+                    "data" => [
+                        "id" => $courseItem->id,
+                        "name" => $courseItem->name,
+                    ]
+                ]);
+            }
+        }catch (\Exception $e){
+            return response()->json([
+                "errors" => [
+                    "name" => [$e->getMessage()]
+                ]
+            ],422);
+        }
     }
 }

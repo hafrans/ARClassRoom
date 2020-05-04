@@ -6,6 +6,7 @@ use App\Course;
 use App\Http\Requests\CourseRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 
 class CourseController extends Controller
@@ -14,7 +15,7 @@ class CourseController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $req
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(Request $req): Object
     {
@@ -33,7 +34,6 @@ class CourseController extends Controller
                 "msg" => 'OK',
                 "count" => $result->total(),
                 "data" => $result->items()
-
             ]);
         } else {
 
@@ -47,7 +47,7 @@ class CourseController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create(Request $req)
     {
@@ -62,7 +62,7 @@ class CourseController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(CourseRequest $request)
     {
@@ -99,7 +99,7 @@ class CourseController extends Controller
      * Display the specified resource.
      *
      * @param \App\Course $course
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show(Course $course)
     {
@@ -110,7 +110,7 @@ class CourseController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param \App\Course $course
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit(Course $course)
     {
@@ -122,7 +122,7 @@ class CourseController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Course $course
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, Course $course)
     {

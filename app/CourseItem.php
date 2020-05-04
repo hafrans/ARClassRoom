@@ -11,6 +11,8 @@ class CourseItem extends Model
 
     protected $primaryKey = "id";
 
+    protected $dateFormat = "Y-m-d H:i:s";
+
 
     public function simages(){
         return $this->hasMany("App\SImage","course_item_id");

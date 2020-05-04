@@ -29,6 +29,6 @@ Route::namespace("Admin")->name("admin.")->prefix("/admin")->middleware("auth:we
     Route::get("/dashboard","HomeController@dashboard")->name("dashboard");
 
     Route::resource("course","CourseController");
-
+    Route::resource("courseItem","CourseItemController");
 
 });

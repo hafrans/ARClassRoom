@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <title>{{$title??"默认界面"}} @if(isset($title)) -- @endif {{config("app.name","Lambda")}}</title>
         <meta charset="utf-8">

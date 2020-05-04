@@ -12,6 +12,8 @@ class SImage extends Model
 
     protected $primaryKey = "id";
 
+    protected $dateFormat = "Y-m-d H:i:s";
+
     public function courseItem(){
         return $this->hasOne("App\CourseItem", "course_item_id");
     }

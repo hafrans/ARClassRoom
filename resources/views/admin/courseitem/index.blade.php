@@ -1,0 +1,236 @@
+@extends("layouts.laybase")
+
+@section("head")
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+@endsection
+
+@section("body-attr","")
+
+@section("content")
+
+    <div class="layui-container" style="margin-top: 14px;">
+        {{--        <div class="layui-row">--}}
+        {{--            <div class="layui-col-md12">--}}
+        {{--                <div class="layui-card">--}}
+
+        {{--                    <fieldset class="layui-elem-field layui-field-title site-title">--}}
+        {{--                        <legend><a name="default">课程列表</a></legend>--}}
+        {{--                    </fieldset>--}}
+        {{--                </div>--}}
+        {{--            </div>--}}
+        {{--        </div>--}}
+
+        <div class="layui-row">
+            <div class="layui-col-md12">
+
+                <form class="layui-form" action="">
+                    <div class="layui-form-item">
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">
+                                <b>课程名称</b>
+                            </label>
+                            <div class="layui-input-inline" style="width: 500px;">
+                                <input type="text" name="name" placeholder="" value="{{old("name")}}" autocomplete="off"
+                                       maxlength="255"
+                                       class="layui-input">
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <button class="layui-btn" lay-submit lay-filter="formDemo">模糊查询</button>
+                        </div>
+
+                        <div class="layui-inline">
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+
+                    </div>
+
+
+                </form>
+
+                <hr>
+
+                <table id="courses" lay-filter="courses"></table>
+
+            </div>
+        </div>
+
+    </div>
+
+@endsection
+
+@section("bottom-script")
+
+    <script type="text/html" id="barDemo">
+        <div class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">查看</div>
+        <div class="layui-btn layui-btn-xs" lay-event="add">新建课程条目</div>
+        <div class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</div>
+    </script>
+
+
+    <script type="text/javascript">
+
+        layui.use(['form', 'table'], function () {
+            var form = layui.form;
+            var table = layui.table;
+
+            table.render({
+                id:"coco",
+                elem: '#courses',
+                url: "{{url()->full()}}".replace("&amp;","&"),
+                request: {
+                    pageName: "page"
+                },
+                height: "full-110",
+                limit: 20,
+                cols: [[
+                    {
+                        field: "id",
+                        title: "序号",
+                        width: "80",
+                        fixed: "left",
+                        unresize: true,
+                        sort: true,
+                    },
+                    {
+                        field: "name",
+                        title: "知识条目名称",
+                        width: 200,
+                        unresize: true
+                    },
+                    {
+                        field: "hasVideo",
+                        title: "视频素材",
+                        type:"normal",
+                        unresize: true,
+                        width: 100
+                    },
+                    {
+                        field:"video_path",
+                        hide:true
+                    },
+                    {
+                        field: "hasAudio",
+                        title: "音频素材",
+                        type:"normal",
+                        unresize: true,
+                        width: 100
+                    },
+                    {
+                        field:"audio_path",
+                        hide:true
+                    },
+                    {
+                        field: "hasModel",
+                        title: "3D模型素材",
+                        type:"normal",
+                        unresize: true,
+                        width:130
+                    },
+                    {
+                        field:"model_path",
+                        hide:true
+                    },
+
+                    {
+                        field: "hasContent",
+                        title: "文本素材",
+                        type:"normal",
+                        unresize: true,
+                        width: 100
+                    },
+                    {
+                        field:"content",
+                        hide:true
+                    },
+                    {
+                        field: "created_at",
+                        title: "创建日期",
+                        width: 180
+
+                    },
+                    {
+                        field: "updated_at",
+                        title: "修改日期",
+                        width: 180
+
+                    },
+                    {
+                        title: "操作",
+                        toolbar: "#barDemo",
+                        width: 220,
+                        fixed: "right"
+                    }
+                ]],
+                page: true
+            });
+
+            //监听提交
+            form.on('submit(formDemo)', function (data) {
+                table.reload("coco",{
+                    url:("{{url()->full()}}&name="+data.field.name).replace("&amp;","&"),
+                });
+                return false;
+            });
+
+            table.on('tool(courses)',function(obj){
+                console.log(obj)
+                switch(obj.event){
+                    case 'add':
+                        layer.msg('添加');
+                        break;
+                    case 'del':
+                        layer.confirm("您是否要删除该课程条目？此操作无法恢复",
+                            {btn:['确定','取消']},
+                            function (index, layero) {
+                                var objx = obj;
+                                $.ajax({
+                                    url:"{{action("Admin\CourseItemController@index")}}/"+obj.data.id,
+                                    type:"delete",
+                                    dataType:"json",
+                                    success: function(data){
+                                        layer.msg(JSON.stringify(data))
+
+                                        if(data.code == 0){
+                                            layer.msg("删除成功")
+                                            objx.del()
+
+                                        }else{
+                                            layer.msg("删除失败")
+                                        }
+
+                                        layer.close(index)
+                                    },
+                                    error:function(jqXhr){
+                                        if (jqXhr.status == 422){
+                                            let obj = JSON.parse(jqXhr.responseText);
+                                            for (let i in obj.errors){
+                                                layer.msg(obj.errors[i][0]);
+                                            }
+                                        }else{
+                                            layer.msg("网络异常")
+                                        }
+                                    }
+                                })
+                            }
+                        )
+                        break;
+                    case 'edit':
+                        layer.msg('编辑');
+                        break;
+                };
+
+            });
+
+
+
+        });
+
+
+    </script>
+
+@endsection
