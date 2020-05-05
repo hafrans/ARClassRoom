@@ -9,7 +9,7 @@
     <script type="text/javascript" src="{{asset('static/three/inflate.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('static/three/OrbitControls.js')}}"></script>
     <style type="text/css">
-        .control-tip{
+        .control-tip {
             position: absolute;
             left: 0;
             bottom: 0;
@@ -17,10 +17,10 @@
             height: 2em;
             text-align: center;
             line-height: 200%;
-            background: rgba(128,128,128,0.5);
+            background: rgba(128, 128, 128, 0.5);
         }
 
-        .loading-tip{
+        .loading-tip {
             text-align: center;
             width: 100%;
             height: 20%;
@@ -30,7 +30,7 @@
             font-size: 1.5em;
         }
 
-        .loading-tip > i{
+        .loading-tip > i {
             display: inline-block;
             font-size: 1.5em;
             position: relative;
@@ -94,7 +94,8 @@
                         @if (empty($item->video_path))
                             无视频资源
                         @else
-                            <video width="300" height="200" controls="controls" src="{{\Illuminate\Support\Facades\Storage::disk("s3")->temporaryUrl($item->video_path,now()->addMinutes(10))}}"></video>
+                            <video width="300" height="200" controls="controls"
+                                   src="{{\Illuminate\Support\Facades\Storage::disk("s3")->temporaryUrl($item->video_path,now()->addMinutes(10))}}"></video>
                         @endif
                     </td>
                     <th>
@@ -104,7 +105,8 @@
                         @if (empty($item->video_path))
                             无音频资源
                         @else
-                            <audio type="audio/mp3" controls="controls" src="{{\Illuminate\Support\Facades\Storage::disk("s3")->temporaryUrl($item->audio_path,now()->addMinutes(10))}}"/>
+                            <audio type="audio/mp3" controls="controls"
+                                   src="{{\Illuminate\Support\Facades\Storage::disk("s3")->temporaryUrl($item->audio_path,now()->addMinutes(10))}}"/>
                         @endif
                     </td>
                 </tr>
@@ -115,15 +117,15 @@
                         @if (empty($item->model_path))
                             没有建模资源！
                         @else
-                            {{$item->model_path}}
                             <div id="uploaded_model">
                                 <hr>
-                                <div id="container_model" style="width: 500px; height: 500px; overflow: hidden; position: relative">
-                                    <div class="loading-tip" id="loadingtip" >
+                                <div id="container_model"
+                                     style="width: 500px; height: 500px; overflow: hidden; position: relative">
+                                    <div class="loading-tip" id="loadingtip">
 
-                                           <i class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop"></i>
-                                           &nbsp; &nbsp;<b> 加载中
-                                       </b>
+                                        <i class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop"></i>
+                                        &nbsp; &nbsp;<b> 加载中
+                                        </b>
                                     </div>
                                 </div>
                                 <div class="control-tip">
@@ -133,8 +135,8 @@
 
                             <script type="text/javascript">
 
-                                document.onreadystatechange = function(){
-                                    if(document.readyState == "complete"){
+                                document.onreadystatechange = function () {
+                                    if (document.readyState == "complete") {
 
                                         var mixers = []
                                         var oldObject = null;
@@ -142,16 +144,16 @@
                                         var scene = new THREE.Scene();
 
                                         scene.add(new THREE.AmbientLight(0xFFFFFF));
-                                        var camera = new THREE.PerspectiveCamera( 45, container.width() / container.height(), 0.1, 1000 );
+                                        var camera = new THREE.PerspectiveCamera(45, container.width() / container.height(), 0.1, 1000);
                                         camera.lookAt(new THREE.Vector3(0, 0, 0));
                                         camera.position.set(-30, 30, 50);
 
-                                        var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-                                        renderer.setSize( container.width(), container.height());
+                                        var renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
+                                        renderer.setSize(container.width(), container.height());
                                         var control = new THREE.OrbitControls(camera, renderer.domElement);
                                         control.update();
 
-                                        var gridHelper = new THREE.GridHelper( 100, 30, 0x2C2C2C, 0x888888 );
+                                        var gridHelper = new THREE.GridHelper(100, 30, 0x2C2C2C, 0x888888);
                                         scene.add(gridHelper);
 
                                         var clock = new THREE.Clock();
@@ -171,10 +173,10 @@
 
                                         container.append(renderer.domElement);
 
-                                        loader.load("{{\Illuminate\Support\Facades\Storage::disk("s3")->temporaryUrl($item->model_path,now()->addMinutes(10))}}".replace(/&amp;/g,"&"),function(object){
+                                        loader.load("{{\Illuminate\Support\Facades\Storage::disk("s3")->temporaryUrl($item->model_path,now()->addMinutes(10))}}".replace(/&amp;/g, "&"), function (object) {
                                             console.log(object)
                                             object.scale.setScalar(0.04);
-                                            object.position.set(0,0,0);
+                                            object.position.set(0, 0, 0);
                                             scene.add(object);
                                             $('#loadingtip').addClass('layui-hide');
                                             if (object.animations.length > 0) {

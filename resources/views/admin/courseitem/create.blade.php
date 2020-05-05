@@ -248,8 +248,6 @@
                 ,done: function(res){
                     layer.closeAll('loading'); //关闭loading
                     layer.msg('上传成功');
-
-                    //.find('audio').attr('src', res.files.file);
                     multiMediaPartialForm.model_path =  res.data.path
                     loader.load(res.data.temporary,function(object){
                         object.scale.setScalar(0.04);
@@ -274,7 +272,7 @@
 
             //监听提交
             form.on('submit(formDemo)', function (data) {
-                alert(JSON.stringify(Object.assign({},data.field,multiMediaPartialForm)))
+                // alert(JSON.stringify(Object.assign({},data.field,multiMediaPartialForm)))
 
                 if (data.field.name.length <= 3){
                     layer.msg("课程名称长度过小")
