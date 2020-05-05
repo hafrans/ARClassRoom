@@ -23,10 +23,11 @@ class CourseController extends Controller
 
         if ($req->ajax()) {
             $result = [];
+            $pending = Course::orderBy('created_at', 'desc');
             if ($req->has("name")) {
-                $result = Course::where("name", "like", "%" . $req->name . "%")->paginate(20);
+                $result = $pending->where("name", "like", "%" . $req->name . "%")->paginate(20);
             } else {
-                $result = Course::paginate(20);
+                $result = $pending->paginate(20);
             }
 
 

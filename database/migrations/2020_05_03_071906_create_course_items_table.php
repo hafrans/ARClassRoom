@@ -16,10 +16,10 @@ class CreateCourseItemsTable extends Migration
         Schema::create('ar_course_items', function (Blueprint $table) {
             $table->bigIncrements("id");
             $table->string("name",255);
-            $table->text("video_path");
-            $table->text("audio_path");
-            $table->text("model_path");
-            $table->text("content");
+            $table->text("video_path")->nullable(true);
+            $table->text("audio_path")->nullable(true);
+            $table->text("model_path")->nullable(true);
+            $table->text("content")->nullable(true);
             $table->unsignedBigInteger("course_id");
             $table->timestamps();
 

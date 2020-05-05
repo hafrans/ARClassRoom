@@ -43,7 +43,7 @@
                         <div class="layui-input-inline">
                             <input type="text" name="captcha" required lay-verify="required" autocomplete="off" class="layui-input">
                         </div>
-                        <div class="layui-form-mid layui-word-aux"><a href="javascript:(function(){document.getElementById('captcha').src='{{captcha_src()}}'+Math.random();})()"><img src="{{captcha_src()}}" id="captcha" /></a></div>
+                        <div class="layui-form-mid layui-word-aux"><a href="javascript:(function(){document.getElementById('captcha').src='{{captcha_src()}}'+Math.random();})()"><img style="position: relative; top:-8px" src="{{captcha_src()}}" id="captcha" /></a></div>
                     </div>
                     <div class="layui-form-item">
                         <div class="layui-input-block">
@@ -94,7 +94,10 @@
                     dataType:"json",
                     data:data.field,
                     success: function(data){
-                        layer.msg(JSON.stringify(data))
+                        if(data.code == 0){
+                            layer.msg("课程创建成功")
+                            setTimeout(()=>location.href='{{action("Admin\CourseController@index")}}',1500);
+                        }
                     },
                     error:function(jqXhr){
                         if (jqXhr.status == 422){

@@ -29,6 +29,10 @@
                     <div class="layui-form-item">
 
                         <div class="layui-inline">
+                            <a class="layui-btn layui-btn-danger" href="{{action("Admin\CourseItemController@create")}}?course={{request()->get("course")}}">新建知识点</a>
+                        </div>
+
+                        <div class="layui-inline">
                             <label class="layui-form-label">
                                 <b>知识点名称</b>
                             </label>
@@ -66,8 +70,8 @@
 @section("bottom-script")
 
     <script type="text/html" id="barDemo">
-        <div class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">查看</div>
-        <div class="layui-btn layui-btn-xs" lay-event="add">新建课程条目</div>
+        <div class="layui-btn layui-btn-primary layui-btn-xs" lay-event="view">查看资源</div>
+        <div class="layui-btn layui-btn-xs" lay-event="edit">修改</div>
         <div class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</div>
     </script>
 
@@ -180,8 +184,23 @@
             table.on('tool(courses)',function(obj){
                 console.log(obj)
                 switch(obj.event){
-                    case 'add':
-                        layer.msg('添加');
+                    case 'view':
+                        var index = layer.open({
+                            type: 2 //此处以iframe举例
+                            ,title: '课程条目查看'
+                            ,area: ['1024px', '600px']
+                            ,shade: 1
+                            ,maxmin: true
+                            ,content: '{{action("Admin\CourseItemController@index")}}/'+obj.data.id
+                            ,btn: ['关闭'] //只是为了演示
+                            ,yes: function(){
+                                layer.closeAll();
+                            }
+                            ,zIndex: layer.zIndex //重点1
+                            ,success: function(layero){
+                                layer.setTop(layero); //重点2
+                            }
+                        });
                         break;
                     case 'del':
                         layer.confirm("您是否要删除该课程条目？此操作无法恢复",

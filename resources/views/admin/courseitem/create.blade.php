@@ -45,8 +45,9 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">归属课程</label>
                         <div class="layui-input-block">
-                            <input type="text" name="course_id" required readonly lay-verify="required" style="color:#444" maxlength="255" value="{{\App\Course::find(request()->get("course"))->name}}" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                            <input type="text" name="course_name" required readonly lay-verify="required" style="color:#444" maxlength="255" value="{{\App\Course::find(request()->get("course"))->name}}" placeholder="请输入标题" autocomplete="off" class="layui-input">
                         </div>
+                        <input type="hidden" name="course_id" readonly value="{{\App\Course::find(request()->get("course"))->id}}"/>
                     </div>
                     <div class="layui-form-item layui-form-text">
                         <label class="layui-form-label">知识点名称</label>
@@ -79,7 +80,7 @@
                                 <p style="color:#333">点击上传，或将音频素材拖拽到此处</p>
                                 <div class="layui-hide" id="uploaded_audio" >
                                     <hr>
-                                    <audio controls="controls" style="width: 480px;" />
+                                    <audio type="audio/mp3" controls="controls" style="width: 480px;" />
                                 </div>
                             </div>
                         </div>
@@ -187,9 +188,9 @@
             var upload = layui.upload;
 
             var multiMediaPartialForm = {
-                video:null,
-                audio:null,
-                model:null,
+                video_path:null,
+                audio_path:null,
+                model_path:null,
             };
 
 
@@ -198,7 +199,7 @@
             upload.render({
                 elem: '#uploadvideo'
                 ,accept: "video"
-                ,url: 'http://127.0.0.1:81/post' //改成您自己的上传接口
+                ,url: '{{route("admin.upload.video")}}' //改成您自己的上传接口
                 ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
                     layer.load(); //上传loading
                 }
@@ -208,7 +209,8 @@
                 ,done: function(res){
                     layer.msg('上传成功');
                     layer.closeAll('loading'); //关闭loading
-                    layui.$('#uploaded_video').removeClass('layui-hide').find('video').attr('src', res.files.file);
+                    layui.$('#uploaded_video').removeClass('layui-hide').find('video').attr('src', res.data.temporary);
+                    multiMediaPartialForm.video_path = res.data.path;
                     console.log(res)
                 }
             });
@@ -216,7 +218,7 @@
             upload.render({
                 elem: '#uploadaudio'
                 ,accept: "audio"
-                ,url: 'http://127.0.0.1:81/post' //改成您自己的上传接口
+                ,url: '{{route("admin.upload.audio")}}' //改成您自己的上传接口
                 ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
                     layer.load(); //上传loading
                 }
@@ -226,7 +228,8 @@
                 ,done: function(res){
                     layer.closeAll('loading'); //关闭loading
                     layer.msg('上传成功');
-                    layui.$('#uploaded_audio').removeClass('layui-hide').find('audio').attr('src', res.files.file);
+                    layui.$('#uploaded_audio').removeClass('layui-hide').find('audio').attr('src',  res.data.temporary);
+                    multiMediaPartialForm.audio_path =  res.data.path
                     console.log(res)
                 }
             });
@@ -235,8 +238,8 @@
                 elem: '#uploadmodel'
                 ,accept: "file"
                 ,exts:"fbx"
-                ,url: 'http://127.0.0.1:81/post' //改成您自己的上传接口
-                ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                ,url: '{{route("admin.upload.model")}}'
+                ,before: function(obj){
                     layer.load(); //上传loading
                 }
                 ,error: function(index, upload){
@@ -245,16 +248,17 @@
                 ,done: function(res){
                     layer.closeAll('loading'); //关闭loading
                     layer.msg('上传成功');
-                    layui.$('#uploaded_model').removeClass('layui-hide');
-                    //.find('audio').attr('src', res.files.file);
 
-                    loader.load(res.files.file,function(object){
-                        object.scale.setScalar(0.05);
+                    //.find('audio').attr('src', res.files.file);
+                    multiMediaPartialForm.model_path =  res.data.path
+                    loader.load(res.data.temporary,function(object){
+                        object.scale.setScalar(0.04);
                         object.position.set(0,0,0);
                         if (oldObject != null){
-                            this.scene.remove(oldObject);
+                            scene.remove(oldObject);
                         }
-                        this.scene.add(object);
+                        scene.add(object);
+                        layui.$('#uploaded_model').removeClass('layui-hide');
                         oldObject = object;
                         if (object.animations.length > 0) {
                             object.mixer = new THREE.AnimationMixer(object);
@@ -263,35 +267,32 @@
                         }
                     })
 
-
                     render();
                     console.log(res)
-
                 }
             });
 
             //监听提交
             form.on('submit(formDemo)', function (data) {
+                alert(JSON.stringify(Object.assign({},data.field,multiMediaPartialForm)))
 
                 if (data.field.name.length <= 3){
                     layer.msg("课程名称长度过小")
                     return false;
                 }
 
-                if(data.field.description.length <= 3){
-                    layer.msg("课程介绍长度过小")
-                    return false;
-                }
-
                 //check ok
 
                 $.ajax({
-                    url:"{{action("Admin\CourseController@store")}}",
+                    url:"{{action("Admin\CourseItemController@store")}}",
                     type:"post",
                     dataType:"json",
-                    data:data.field,
+                    data:Object.assign({},data.field,multiMediaPartialForm),
                     success: function(data){
-                        layer.msg(JSON.stringify(data))
+                        if(data.code == 0){
+                            layer.msg("知识点创建成功")
+                            setTimeout(()=>location.href='{{action("Admin\CourseItemController@index")}}?course={{\App\Course::find(request()->get("course"))->id}}',1500);
+                        }
                     },
                     error:function(jqXhr){
                         if (jqXhr.status == 422){

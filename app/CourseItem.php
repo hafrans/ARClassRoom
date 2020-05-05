@@ -14,8 +14,22 @@ class CourseItem extends Model
     protected $dateFormat = "Y-m-d H:i:s";
 
 
+    protected $fillable = [
+        "name",
+        "course_id",
+        "content",
+        "video_path",
+        "audio_path",
+        "model_path",
+    ];
+
+
     public function simages(){
         return $this->hasMany("App\SImage","course_item_id");
+    }
+
+    public function course(){
+        return $this->belongsTo("App\Course","course_id");
     }
 
 }

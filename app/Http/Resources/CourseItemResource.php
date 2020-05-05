@@ -25,7 +25,7 @@ class CourseItemResource extends JsonResource
             "hasVideo" => !empty($this->video_path) ? "<i class='layui-icon layui-icon-ok'></i>" : "<i class='layui-icon layui-icon-close'></i>",
             "hasAudio" => !empty($this->audio_path)? "<i class='layui-icon layui-icon-ok'></i>" : "<i class='layui-icon layui-icon-close'></i>",
             "hasModel" => !empty($this->model_path)? "<i class='layui-icon layui-icon-ok'></i>" : "<i class='layui-icon layui-icon-close'></i>",
-            "hasContent" => !empty($this->content_path)? "<i class='layui-icon layui-icon-ok'></i>" : "<i class='layui-icon layui-icon-close'></i>",
+            "hasContent" => !empty($this->content)? "<i class='layui-icon layui-icon-ok'></i>" : "<i class='layui-icon layui-icon-close'></i>",
             "created_at" => $this->created_at->format("Y-m-d H:i:s"),
             "updated_at" => $this->updated_at->format("Y-m-d H:i:s"),
         ];
