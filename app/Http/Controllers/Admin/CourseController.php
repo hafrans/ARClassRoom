@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Course;
 use App\Http\Requests\CourseRequest;
+use App\Http\Resources\CourseResource;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
@@ -33,7 +34,7 @@ class CourseController extends Controller
                 "code" => 0,
                 "msg" => 'OK',
                 "count" => $result->total(),
-                "data" => $result->items()
+                "data" => CourseResource::collection($result)
             ]);
         } else {
 

@@ -10,7 +10,7 @@
 
 @section("content")
 
-    <div class="layui-container" style="margin-top: 14px;">
+    <div class="layui-container" style="margin-top: 50px;">
         {{--        <div class="layui-row">--}}
         {{--            <div class="layui-col-md12">--}}
         {{--                <div class="layui-card">--}}
@@ -30,7 +30,7 @@
 
                         <div class="layui-inline">
                             <label class="layui-form-label">
-                                <b>课程名称</b>
+                                <b>知识点名称</b>
                             </label>
                             <div class="layui-input-inline" style="width: 500px;">
                                 <input type="text" name="name" placeholder="" value="{{old("name")}}" autocomplete="off"
@@ -85,7 +85,7 @@
                 request: {
                     pageName: "page"
                 },
-                height: "full-110",
+                height: "full-140",
                 limit: 20,
                 cols: [[
                     {

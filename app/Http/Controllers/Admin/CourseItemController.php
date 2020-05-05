@@ -52,11 +52,17 @@ class CourseItemController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $req
+     * @return void
      */
-    public function create()
+    public function create(Request $req)
     {
-        //
+        if(!$req->has("course")){
+            abort("500","No Course Provided.");
+        }
+
+        return view("admin.courseitem.create");
+
     }
 
     /**

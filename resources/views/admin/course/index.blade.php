@@ -66,9 +66,9 @@
 @section("bottom-script")
 
     <script type="text/html" id="barDemo">
-        <div class="layui-btn layui-btn-primary layui-btn-xs" lay-event="view">查看条目</div>
-        <div class="layui-btn layui-btn-xs" lay-event="add">课程条目</div>
-        <div class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</div>
+        <div class="layui-btn layui-btn-xs" lay-event="add">新增知识点</div>
+        <div class="layui-btn layui-btn-primary layui-btn-xs" lay-event="view">所有知识点</div>
+        <div class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除课程</div>
     </script>
 
 
@@ -91,7 +91,7 @@
                     {
                         field: "id",
                         title: "课程号",
-                        width: "10%",
+                        width: "8%",
                         fixed: "left",
                         unresize: true,
                         sort: true,
@@ -111,19 +111,18 @@
                     {
                         field: "created_at",
                         title: "创建日期",
-
-                        width: 120
+                        width: 180
                     },
-                    {
-                        field: "updated_at",
-                        title: "修改日期",
-
-                        width: 120
-                    },
+                    // {
+                    //     field: "updated_at",
+                    //     title: "修改日期",
+                    //
+                    //     width: 120
+                    // },
                     {
                         title: "操作",
                         toolbar: "#barDemo",
-                        width: 220
+                        width: 280,fixed:"right"
                     }
                 ]],
                 page: true
@@ -138,20 +137,19 @@
             });
 
             table.on('tool(courses)',function(obj){
-                console.log(obj)
+                var that = this;
+                var objx = obj;
                 switch(obj.event){
                     case 'view':
-                        var that = this;
-                        var objx = obj;
                         //多窗口模式，层叠置顶
-                        layer.open({
+                        var index = layer.open({
                             type: 2 //此处以iframe举例
                             ,title: '课程条目查看'
                             ,area: ['1024px', '600px']
                             ,shade: 1
                             ,maxmin: true
                             ,content: '{{action("Admin\CourseItemController@index")}}?course='+objx.data.id+"&bb=true"
-                            ,btn: ['全部关闭'] //只是为了演示
+                            ,btn: ['关闭'] //只是为了演示
                             ,yes: function(){
                                   layer.closeAll();
                             }
@@ -160,12 +158,29 @@
                                 layer.setTop(layero); //重点2
                             }
                         });
+                        layer.full(index);
                         break;
                     case 'add':
-                        layer.msg('添加');
+                        var index = layer.open({
+                            type: 2 //此处以iframe举例
+                            ,title: '课程条目查看'
+                            ,area: ['1024px', '600px']
+                            ,shade: 1
+                            ,maxmin: true
+                            ,content: '{{action("Admin\CourseItemController@create")}}?course='+objx.data.id+"&bb=true"
+                            ,btn: ['关闭'] //只是为了演示
+                            ,yes: function(){
+                                layer.closeAll();
+                            }
+                            ,zIndex: layer.zIndex //重点1
+                            ,success: function(layero){
+                                layer.setTop(layero); //重点2
+                            }
+                        });
+                        layer.full(index);
                         break;
                     case 'del':
-                        layer.confirm("您是否要删除该课程？该课程下的所有的条目会同时被删除！",
+                        layer.confirm("您在删除该课程的同时，该课程下的所有的知识点均会被删除，且无法恢复！您是否要删除该课程？",
                             {btn:['确定','取消']},
                             function (index, layero) {
                                 var objx = obj;

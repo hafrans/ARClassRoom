@@ -61,16 +61,16 @@
 {{--                        <dd><a href="javascript:;">课程条目添加</a></dd>--}}
 {{--                    </dl>--}}
 {{--                </li>--}}
-                <li class="layui-nav-item">
-                    <a href="javascript:;">ArImage设置</a>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;">识别设置</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">ArImage列表</a></dd>
-                        <dd><a href="javascript:;">列表二</a></dd>
-                        <dd><a href="https://portal.easyar.cn/crs/list">云识别管理<span>&nbsp;<i class="layui-icon layui-icon-link"></i></span></a></dd>
+                        <dd><a href="javascript:;">识别图库</a></dd>
+                        <dd><a href="javascript:;">添加新图片</a></dd>
+                        <dd><a href="https://portal.easyar.cn/crs/list">云识别管理<span>&nbsp; &nbsp;<i class="layui-icon layui-icon-link"></i></span></a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item"><a href=""><i class="layui-icon layui-icon-light"></i> &nbsp; 快速添加条目</a></li>
-                <li class="layui-nav-item"><a href="">发布商品</a></li>
+{{--                <li class="layui-nav-item"><a href="">发布商品</a></li>--}}
             </ul>
         </div>
     </div>
