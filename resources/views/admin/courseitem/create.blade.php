@@ -9,7 +9,7 @@
     <script type="text/javascript" src="{{asset('static/three/inflate.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('static/three/OrbitControls.js')}}"></script>
     <style type="text/css">
-        .control-tip{
+        .control-tip {
             position: absolute;
             left: 0;
             bottom: 0;
@@ -17,7 +17,7 @@
             height: 2em;
             text-align: center;
             line-height: 200%;
-            background: rgba(128,128,128,0.5);
+            background: rgba(128, 128, 128, 0.5);
         }
     </style>
 @endsection
@@ -29,12 +29,9 @@
     <div class="layui-container" style="margin-top: 50px;">
         <div class="layui-row">
             <div class="layui-col-md12">
-                <div class="layui-card">
-
-                    <fieldset class="layui-elem-field layui-field-title site-title">
-                        <legend><a name="default">新增知识点</a></legend>
-                    </fieldset>
-                </div>
+                <fieldset class="layui-elem-field layui-field-title site-title">
+                    <legend><a name="default">新增知识点</a></legend>
+                </fieldset>
             </div>
         </div>
 
@@ -45,14 +42,20 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">归属课程</label>
                         <div class="layui-input-block">
-                            <input type="text" name="course_name" required readonly lay-verify="required" style="color:#444" maxlength="255" value="{{\App\Course::find(request()->get("course"))->name}}" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                            <input type="text" name="course_name" required readonly lay-verify="required"
+                                   style="color:#444" maxlength="255"
+                                   value="{{\App\Course::find(request()->get("course"))->name}}" placeholder="请输入标题"
+                                   autocomplete="off" class="layui-input">
                         </div>
-                        <input type="hidden" name="course_id" readonly value="{{\App\Course::find(request()->get("course"))->id}}"/>
+                        <input type="hidden" name="course_id" readonly
+                               value="{{\App\Course::find(request()->get("course"))->id}}"/>
                     </div>
                     <div class="layui-form-item layui-form-text">
                         <label class="layui-form-label">知识点名称</label>
                         <div class="layui-input-block">
-                            <input type="text" name="name" required lay-verify="required" maxlength="255" value="{{old("name")}}" placeholder="请输入课程知识点名称" autocomplete="off" class="layui-input"/>
+                            <input type="text" name="name" required lay-verify="required" maxlength="255"
+                                   value="{{old("name")}}" placeholder="请输入课程知识点名称" autocomplete="off"
+                                   class="layui-input"/>
                         </div>
                     </div>
 
@@ -62,7 +65,7 @@
                             <div class="layui-upload-drag" id="uploadvideo" style="width: 500px;position: relative">
                                 <i class="layui-icon"></i>
                                 <p style="color:#333">点击上传，或将视频素材拖拽到此处</p>
-                                <div class="layui-hide" id="uploaded_video" >
+                                <div class="layui-hide" id="uploaded_video">
                                     <hr>
                                     <video controls="controls" width="480" height="350">
 
@@ -78,9 +81,9 @@
                             <div class="layui-upload-drag" id="uploadaudio" style="width: 500px;position: relative">
                                 <i class="layui-icon"></i>
                                 <p style="color:#333">点击上传，或将音频素材拖拽到此处</p>
-                                <div class="layui-hide" id="uploaded_audio" >
+                                <div class="layui-hide" id="uploaded_audio">
                                     <hr>
-                                    <audio type="audio/mp3" controls="controls" style="width: 480px;" />
+                                    <audio type="audio/mp3" controls="controls" style="width: 480px;"/>
                                 </div>
                             </div>
                         </div>
@@ -93,9 +96,12 @@
                                 <i class="layui-icon"></i>
                                 <p style="color:#333">点击上传，或将素材拖拽到此处</p>
                             </div>
-                            <div class="layui-hide" id="uploaded_model" style="margin-top:2rem;padding:26px;border:1px dashed #CCC;">
-                                <hr">
-                                <div id="container_model" style="width: 500px; height: 400px; overflow: hidden; position: relative">
+                            <div class="layui-hide" id="uploaded_model"
+                                 style="margin-top:2rem;padding:26px;border:1px dashed #CCC;">
+                                <hr
+                                ">
+                                <div id="container_model"
+                                     style="width: 500px; height: 400px; overflow: hidden; position: relative">
 
                                 </div>
                                 <div class="control-tip">
@@ -108,18 +114,22 @@
                     <div class="layui-form-item layui-form-text">
                         <label class="layui-form-label">文字介绍</label>
                         <div class="layui-input-block">
-                            <textarea name="content" placeholder="请输入内容" maxlength="255" rows="15" class="layui-textarea"></textarea>
+                            <textarea name="content" placeholder="请输入内容" maxlength="255" rows="15"
+                                      class="layui-textarea"></textarea>
                         </div>
                     </div>
-
 
 
                     <div class="layui-form-item">
                         <label class="layui-form-label">验证码</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="captcha" required lay-verify="required" autocomplete="off" class="layui-input">
+                            <input type="text" name="captcha" required lay-verify="required" autocomplete="off"
+                                   class="layui-input">
                         </div>
-                        <div class="layui-form-mid layui-word-aux"><a href="javascript:(function(){document.getElementById('captcha').src='{{captcha_src()}}'+Math.random();})()"><img style="position: relative; top:-8px" src="{{captcha_src()}}" id="captcha" /></a></div>
+                        <div class="layui-form-mid layui-word-aux"><a
+                                href="javascript:(function(){document.getElementById('captcha').src='{{captcha_src()}}'+Math.random();})()"><img
+                                    style="position: relative; top:-8px" src="{{captcha_src()}}" id="captcha"/></a>
+                        </div>
                     </div>
                     <div class="layui-form-item">
                         <div class="layui-input-block">
@@ -152,16 +162,16 @@
         var scene = new THREE.Scene();
 
         scene.add(new THREE.AmbientLight(0xFFFFFF));
-        var camera = new THREE.PerspectiveCamera( 45, container.width() / container.height(), 0.1, 1000 );
+        var camera = new THREE.PerspectiveCamera(45, container.width() / container.height(), 0.1, 1000);
         camera.lookAt(new THREE.Vector3(0, 0, 0));
         camera.position.set(-30, 30, 50);
 
-        var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize( container.width(), container.height());
+        var renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
+        renderer.setSize(container.width(), container.height());
         var control = new THREE.OrbitControls(camera, renderer.domElement);
         control.update();
 
-        var gridHelper = new THREE.GridHelper( 100, 30, 0x2C2C2C, 0x888888 );
+        var gridHelper = new THREE.GridHelper(100, 30, 0x2C2C2C, 0x888888);
         scene.add(gridHelper);
 
         var clock = new THREE.Clock();
@@ -182,15 +192,14 @@
         }
 
 
-
-        layui.use(['form', 'table','upload'], function () {
+        layui.use(['form', 'table', 'upload'], function () {
             var form = layui.form;
             var upload = layui.upload;
 
             var multiMediaPartialForm = {
-                video_path:null,
-                audio_path:null,
-                model_path:null,
+                video_path: null,
+                audio_path: null,
+                model_path: null,
             };
 
 
@@ -198,15 +207,15 @@
             // 视频
             upload.render({
                 elem: '#uploadvideo'
-                ,accept: "video"
-                ,url: '{{route("admin.upload.video")}}' //改成您自己的上传接口
-                ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                , accept: "video"
+                , url: '{{route("admin.upload.video")}}' //改成您自己的上传接口
+                , before: function (obj) { //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
                     layer.load(); //上传loading
                 }
-                ,error: function(index, upload){
+                , error: function (index, upload) {
                     layer.closeAll('loading'); //关闭loading
                 }
-                ,done: function(res){
+                , done: function (res) {
                     layer.msg('上传成功');
                     layer.closeAll('loading'); //关闭loading
                     layui.$('#uploaded_video').removeClass('layui-hide').find('video').attr('src', res.data.temporary);
@@ -217,42 +226,42 @@
             // audio
             upload.render({
                 elem: '#uploadaudio'
-                ,accept: "audio"
-                ,url: '{{route("admin.upload.audio")}}' //改成您自己的上传接口
-                ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                , accept: "audio"
+                , url: '{{route("admin.upload.audio")}}' //改成您自己的上传接口
+                , before: function (obj) { //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
                     layer.load(); //上传loading
                 }
-                ,error: function(index, upload){
+                , error: function (index, upload) {
                     layer.closeAll('loading'); //关闭loading
                 }
-                ,done: function(res){
+                , done: function (res) {
                     layer.closeAll('loading'); //关闭loading
                     layer.msg('上传成功');
-                    layui.$('#uploaded_audio').removeClass('layui-hide').find('audio').attr('src',  res.data.temporary);
-                    multiMediaPartialForm.audio_path =  res.data.path
+                    layui.$('#uploaded_audio').removeClass('layui-hide').find('audio').attr('src', res.data.temporary);
+                    multiMediaPartialForm.audio_path = res.data.path
                     console.log(res)
                 }
             });
             // model
             upload.render({
                 elem: '#uploadmodel'
-                ,accept: "file"
-                ,exts:"fbx"
-                ,url: '{{route("admin.upload.model")}}'
-                ,before: function(obj){
+                , accept: "file"
+                , exts: "fbx"
+                , url: '{{route("admin.upload.model")}}'
+                , before: function (obj) {
                     layer.load(); //上传loading
                 }
-                ,error: function(index, upload){
+                , error: function (index, upload) {
                     layer.closeAll('loading'); //关闭loading
                 }
-                ,done: function(res){
+                , done: function (res) {
                     layer.closeAll('loading'); //关闭loading
                     layer.msg('上传成功');
-                    multiMediaPartialForm.model_path =  res.data.path
-                    loader.load(res.data.temporary,function(object){
+                    multiMediaPartialForm.model_path = res.data.path
+                    loader.load(res.data.temporary, function (object) {
                         object.scale.setScalar(0.04);
-                        object.position.set(0,0,0);
-                        if (oldObject != null){
+                        object.position.set(0, 0, 0);
+                        if (oldObject != null) {
                             scene.remove(oldObject);
                         }
                         scene.add(object);
@@ -274,7 +283,7 @@
             form.on('submit(formDemo)', function (data) {
                 // alert(JSON.stringify(Object.assign({},data.field,multiMediaPartialForm)))
 
-                if (data.field.name.length <= 3){
+                if (data.field.name.length <= 3) {
                     layer.msg("课程名称长度过小")
                     return false;
                 }
@@ -282,23 +291,23 @@
                 //check ok
 
                 $.ajax({
-                    url:"{{action("Admin\CourseItemController@store")}}",
-                    type:"post",
-                    dataType:"json",
-                    data:Object.assign({},data.field,multiMediaPartialForm),
-                    success: function(data){
-                        if(data.code == 0){
+                    url: "{{action("Admin\CourseItemController@store")}}",
+                    type: "post",
+                    dataType: "json",
+                    data: Object.assign({}, data.field, multiMediaPartialForm),
+                    success: function (data) {
+                        if (data.code == 0) {
                             layer.msg("知识点创建成功")
-                            setTimeout(()=>location.href='{{action("Admin\CourseItemController@index")}}?course={{\App\Course::find(request()->get("course"))->id}}',1500);
+                            setTimeout(() => location.href = '{{action("Admin\CourseItemController@index")}}?course={{\App\Course::find(request()->get("course"))->id}}', 1500);
                         }
                     },
-                    error:function(jqXhr){
-                        if (jqXhr.status == 422){
+                    error: function (jqXhr) {
+                        if (jqXhr.status == 422) {
                             let obj = JSON.parse(jqXhr.responseText);
-                            for (let i in obj.errors){
+                            for (let i in obj.errors) {
                                 layer.msg(obj.errors[i][0]);
                             }
-                        }else{
+                        } else {
                             layer.msg("网络异常")
                         }
                     }

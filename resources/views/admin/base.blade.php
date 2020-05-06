@@ -10,8 +10,9 @@
 
     <div class="layui-header">
         <div class="layui-logo"
-             style="font-size:2em;color:#FFFFFE;width:200px;height:60px;background: #393D49;line-height: 60px; overflow: hidden; text-align: center;">
-            ArHelper<sub style="font-size:0.2em">Hafrans</sub>
+             style="font-size:1.5em;color:#FFFFFE;width:200px;height:60px;background: #393D49;line-height: 60px; overflow: hidden; text-align: center;">
+{{--            ArHelper<sub style="font-size:0.2em">Hafrans</sub>--}}
+            {{env("APP_NAME")}}
         </div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left" style="width:100%; height: 100%">
@@ -65,7 +66,7 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;">识别设置</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">识别图库</a></dd>
+                        <dd><a href="{{action("Admin\SImageController@index")}}" target="spanel">识别图库</a></dd>
                         <dd><a href="javascript:;">添加新图片</a></dd>
                     </dl>
                 </li>

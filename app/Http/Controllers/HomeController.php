@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Api\EasyARClientSdkCRS;
 use App\Http\Resources\CourseItem;
 use App\Http\Resources\CourseItemResource;
 use Illuminate\Http\Request;
@@ -30,9 +31,12 @@ class HomeController extends Controller
     }
 
 
-    public function test(Request $req){
+    public function test(Request $req, EasyARClientSdkCRS $client){
 
-        return response()->json([CourseItemResource::collection(\App\CourseItem::all())]);
+        dump($client);
+        dump($client->ping());
+        dump($client->targetsCount());
+        dump($client->targetsV3());
 
     }
 

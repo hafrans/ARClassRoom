@@ -14,11 +14,13 @@ class CreateSImagesTable extends Migration
     public function up()
     {
         Schema::create('ar_s_images', function (Blueprint $table) {
+
             $table->bigIncrements("id");
+            $table->string("name",255)->unique();
             $table->text("path");
-            $table->string("serial_id",255);
-            $table->string("meta",255);
-            $table->unsignedBigInteger("course_item_id");
+            $table->string("serial_id",255)->unique();
+            $table->string("meta",255)->nullable();
+            $table->unsignedBigInteger("course_item_id")->nullable();
             $table->timestamps();
 
             $table->foreign("course_item_id")->references("id")->on("ar_course_items")

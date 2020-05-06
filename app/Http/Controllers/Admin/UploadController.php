@@ -37,12 +37,9 @@ class UploadController extends Controller
             throw new Exception("No valid file, you uploaded " . $file->getMimeType());
         }
 
-        $microTime = (string)microtime(true);
-        $dateString = now()->format("His");
+
         $dirString = now()->format("/Y/m/d");
-
-
-        $filename = $dateString . $microTime . "." . $file->getClientOriginalExtension();
+        $filename = $this->getFileName($file);
         $result = $file->storePubliclyAs($dirString, $filename, "s3");
 
         if (!empty($result)) {
@@ -64,6 +61,12 @@ class UploadController extends Controller
             "data" => []
         ];
 
+    }
+
+    private function getFileName($file){
+        $microTime = (string)microtime(true);
+        $dateString = now()->format("His");
+        return $dateString . $microTime . "." . $file->getClientOriginalExtension();
     }
 
 
@@ -110,6 +113,30 @@ class UploadController extends Controller
             return $this->storageFile($file, $this->model_types);
         } catch (Exception $e) {
             abort(500, $e->getMessage());
+        }
+    }
+
+    /**
+     * @param Request $req
+     * @return array
+     * @throws Exception
+     */
+    public function image(Request $req){
+        $file = $req->file("file");
+        dump($file);
+        if ($file == null) abort(500, "no file uploaded.");
+        try{
+            $dirString = now()->format("/Y/m/d");
+            $result  = $file->storeAs($dirString,$this->getFileName($file));
+            return [
+                "code" => 0,
+                "message" => "success",
+                "data" => [
+                    "path" => $result
+                ]
+            ];
+        }catch (Exception $e){
+            throw $e;
         }
     }
 

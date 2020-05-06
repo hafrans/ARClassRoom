@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <title>{{$title??"默认界面"}} @if(isset($title)) -- @endif {{config("app.name","Lambda")}}</title>
+        <title>{{$title??"管理后台"}} @if(isset($title)) -- @endif {{config("app.name","Lambda")}}</title>
         <meta charset="utf-8">
         <meta name="renderer" content="webkit">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">

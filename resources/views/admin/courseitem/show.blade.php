@@ -36,6 +36,10 @@
             position: relative;
             top: 0.25em;
         }
+
+        .layui-table tbody tr:hover, .layui-table-hover {
+            background-color: #FFF; /*修改成你自己的颜色*/
+        }
     </style>
 @endsection
 
@@ -46,13 +50,9 @@
     <div class="layui-container" style="margin-top: 30px;">
         <div class="layui-row">
             <div class="layui-col-md12">
-                <div class="layui-card">
-
-                    <fieldset class="layui-elem-field layui-field-title site-title">
-                        <legend><a name="default">知识点资源查看</a></legend>
-                    </fieldset>
-
-                </div>
+                <fieldset class="layui-elem-field layui-field-title site-title">
+                    <legend><a name="default">知识点资源查看</a></legend>
+                </fieldset>
             </div>
         </div>
         <div class="layui-row">
@@ -73,8 +73,8 @@
                 <tr>
                     <th><b>创建时间</b></th>
                     <td>{{$item->created_at}}</td>
-                    <th><b>最后更新</b></th>
-                    <td>{{$item->updated_at}}</td>
+                    <th><b>识别ID</b></th>
+                    <td>@if (count($item->simages) == 0) 未绑定图片 @else {{$item->simage->serial_id[0]}} @endif</td>
                 </tr>
                 <tr>
                     <th><b>文字介绍</b></th>
@@ -102,7 +102,7 @@
                         <b>音频资源</b>
                     </th>
                     <td>
-                        @if (empty($item->video_path))
+                        @if (empty($item->audio_path))
                             无音频资源
                         @else
                             <audio type="audio/mp3" controls="controls"
@@ -112,7 +112,7 @@
                 </tr>
 
                 <tr>
-                    <th><b>3D建模资源</b></th>
+                    <th><b>3D建模</b></th>
                     <td colspan="3">
                         @if (empty($item->model_path))
                             没有建模资源！

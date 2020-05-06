@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Course;
 use App\Http\Requests\CourseRequest;
 use App\Http\Resources\CourseResource;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
@@ -22,14 +23,15 @@ class CourseController extends Controller
     {
 
         if ($req->ajax()) {
+
             $result = [];
+
             $pending = Course::orderBy('created_at', 'desc');
             if ($req->has("name")) {
                 $result = $pending->where("name", "like", "%" . $req->name . "%")->paginate(20);
             } else {
                 $result = $pending->paginate(20);
             }
-
 
             return response()->json([
                 "code" => 0,
@@ -49,6 +51,7 @@ class CourseController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $req
      * @return Response
      */
     public function create(Request $req)
@@ -63,8 +66,8 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param CourseRequest $request
+     * @return JsonResponse
      */
     public function store(CourseRequest $request)
     {
@@ -72,7 +75,7 @@ class CourseController extends Controller
 
        try{
 
-           $course = \App\Course::create($data);
+           $course = Course::create($data);
 
            return response()->json([
                "code"=>0,
@@ -100,8 +103,8 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Course $course
-     * @return Response
+     * @param Course $course
+     * @return void
      */
     public function show(Course $course)
     {
@@ -111,7 +114,7 @@ class CourseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Course $course
+     * @param Course $course
      * @return Response
      */
     public function edit(Course $course)
@@ -122,8 +125,8 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Course $course
+     * @param Request $request
+     * @param Course $course
      * @return Response
      */
     public function update(Request $request, Course $course)
@@ -134,8 +137,8 @@ class CourseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Course $course
-     * @return \Illuminate\Http\JsonResponse
+     * @param Course $course
+     * @return JsonResponse
      */
     public function destroy(Course $course)
     {

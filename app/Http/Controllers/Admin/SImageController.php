@@ -2,20 +2,53 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Resources\SImageResource;
 use App\SImage;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Pagination\Paginator;
+use Illuminate\View\View;
 
 class SImageController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $req
+     * @return Application|Factory|JsonResponse|View
      */
-    public function index()
+    public function index(Request $req)
     {
-        //
+
+        if($req->ajax()){
+
+            $pending = SImage::orderBy("created_at","desc");
+
+            if ($req->has("target") && !empty($req->has("target"))){
+
+                $pending->where("name","like","%{$req->target}%");
+                $pending->orWhere("serial_id", $req->target);
+
+            }
+
+            $paginated =  $pending->paginate(20);
+
+            $item = SImageResource::collection($paginated);
+
+            return response()->json([
+                "code" => 0,
+                "msg" => 'OK',
+                "count" => $paginated->total(),
+                "data" => $item
+            ]);
+
+        }else{
+            return view("admin.simage.index");
+        }
     }
 
     /**
@@ -42,12 +75,15 @@ class SImageController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\SImage  $sImage
+     * @param  \App\SImage  $simage
      * @return \Illuminate\Http\Response
      */
-    public function show(SImage $sImage)
+    public function show(SImage $simage)
     {
-        //
+        if($simage == null){
+            abort(500,"图片不存在");
+        }
+        return response()->file("../storage/app/public/test.png");
     }
 
     /**

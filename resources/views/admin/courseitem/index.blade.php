@@ -11,17 +11,6 @@
 @section("content")
 
     <div class="layui-container" style="margin-top: 50px;">
-        {{--        <div class="layui-row">--}}
-        {{--            <div class="layui-col-md12">--}}
-        {{--                <div class="layui-card">--}}
-
-        {{--                    <fieldset class="layui-elem-field layui-field-title site-title">--}}
-        {{--                        <legend><a name="default">课程列表</a></legend>--}}
-        {{--                    </fieldset>--}}
-        {{--                </div>--}}
-        {{--            </div>--}}
-        {{--        </div>--}}
-
         <div class="layui-row">
             <div class="layui-col-md12">
 
@@ -212,7 +201,6 @@
                                     type:"delete",
                                     dataType:"json",
                                     success: function(data){
-                                        layer.msg(JSON.stringify(data))
 
                                         if(data.code == 0){
                                             layer.msg("删除成功")

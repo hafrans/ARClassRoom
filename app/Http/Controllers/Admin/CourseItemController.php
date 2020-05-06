@@ -6,15 +6,20 @@ use App\Course;
 use App\CourseItem;
 use App\Http\Requests\CourseItemRequest;
 use App\Http\Resources\CourseItemResource;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\View\View;
 
 class CourseItemController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
+     * @param Request $req
+     * @return Application|Factory|JsonResponse|View
      */
     public function index(Request $req)
     {
@@ -69,7 +74,7 @@ class CourseItemController extends Controller
      * Store a newly created resource in storage.
      *
      * @param CourseItemRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function store(CourseItemRequest $request)
     {

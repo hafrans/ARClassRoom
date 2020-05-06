@@ -14,7 +14,7 @@
         <div class="layui-row">
             <div class="layui-col-md12">
                 <div style="font-weight: 300; font-size: 1.5rem; padding-left: 1.25rem">
-                    ArHelper <sub style="font-size: 0.2rem">v0.1</sub>
+                    {{env("APP_NAME")}} <sub style="font-size: 0.2rem">v0.1</sub>
                     <br>
                     <br>
                 </div>
@@ -46,10 +46,6 @@
                                 <td>PHP执行程序版本</td>
                                 <td>{{$_SERVER["SERVER_SOFTWARE"]}}</td>
                             </tr>
-{{--                            <tr>--}}
-{{--                                <td>服务器类型</td>--}}
-{{--                                <td>{{$_SERVER[""]}}</td>--}}
-{{--                            </tr>--}}
                             </tbody>
                         </table>
                     </div>
