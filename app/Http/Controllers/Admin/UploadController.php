@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Exception;
-use http\Exception\InvalidArgumentException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -63,7 +62,8 @@ class UploadController extends Controller
 
     }
 
-    private function getFileName($file){
+    private function getFileName($file)
+    {
         $microTime = (string)microtime(true);
         $dateString = now()->format("His");
         return $dateString . $microTime . "." . $file->getClientOriginalExtension();
@@ -121,13 +121,14 @@ class UploadController extends Controller
      * @return array
      * @throws Exception
      */
-    public function image(Request $req){
+    public function image(Request $req)
+    {
         $file = $req->file("file");
-        dump($file);
+
         if ($file == null) abort(500, "no file uploaded.");
-        try{
+        try {
             $dirString = now()->format("/Y/m/d");
-            $result  = $file->storeAs($dirString,$this->getFileName($file));
+            $result = $file->storeAs($dirString, $this->getFileName($file));
             return [
                 "code" => 0,
                 "message" => "success",
@@ -135,8 +136,8 @@ class UploadController extends Controller
                     "path" => $result
                 ]
             ];
-        }catch (Exception $e){
-            throw $e;
+        } catch (Exception $e) {
+            abort(500, $e->getMessage());
         }
     }
 

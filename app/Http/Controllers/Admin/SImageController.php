@@ -10,6 +10,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 use Illuminate\Pagination\Paginator;
 use Illuminate\View\View;
 
@@ -54,7 +55,7 @@ class SImageController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -65,7 +66,7 @@ class SImageController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -76,7 +77,7 @@ class SImageController extends Controller
      * Display the specified resource.
      *
      * @param  \App\SImage  $simage
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show(SImage $simage)
     {
@@ -90,7 +91,7 @@ class SImageController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\SImage  $sImage
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit(SImage $sImage)
     {
@@ -102,7 +103,7 @@ class SImageController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\SImage  $sImage
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, SImage $sImage)
     {
@@ -112,11 +113,28 @@ class SImageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\SImage  $sImage
-     * @return \Illuminate\Http\Response
+     * @param SImage $simage
+     * @return Response
      */
-    public function destroy(SImage $sImage)
+    public function destroy(SImage $simage)
     {
-        //
+        try{
+            if($simage->delete()){
+                return response()->json([
+                    "code"=>0,
+                    "message" => "success",
+                    "data" => [
+                        "id" => $simage->id,
+                        "name" => $simage->name,
+                    ]
+                ]);
+            }
+        }catch (\Exception $e){
+            return response()->json([
+                "errors" => [
+                    "name" => [$e->getMessage()]
+                ]
+            ],422);
+        }
     }
 }

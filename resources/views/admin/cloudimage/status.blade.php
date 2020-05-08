@@ -4,10 +4,6 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <script type="text/javascript" src="{{asset('static/three/three.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('static/three/FBXLoader.js')}}"></script>
-    <script type="text/javascript" src="{{asset('static/three/inflate.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('static/three/OrbitControls.js')}}"></script>
     <style type="text/css">
         .control-tip {
             position: absolute;
@@ -96,16 +92,12 @@
                     <td colspan="3">{{$result->trackablePatchContrast}}</td>
                 </tr>
 
-{{--                <tr>--}}
-{{--                    <th><b>图片</b></th>--}}
-{{--                    <td colspan="3">--}}
-{{--                        --}}{{--                        @if (empty($item->content))--}}
-{{--                        --}}{{--                            没有文字介绍！--}}
-{{--                        --}}{{--                        @else--}}
-{{--                        --}}{{--                            {{$item->content}}--}}
-{{--                        --}}{{--                        @endif--}}
-{{--                    </td>--}}
-{{--                </tr>--}}
+                <tr>
+                    <th><b>图片</b></th>
+                    <td colspan="3" style="position: relative">
+                        <img style="max-width:100%;" src="{{action("Admin\SImageController@index")}}/{{$simage->id}}" />
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>

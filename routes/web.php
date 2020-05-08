@@ -33,6 +33,10 @@ Route::namespace("Admin")->name("admin.")->prefix("/admin")->middleware("auth:we
     Route::get("/dashboard","HomeController@dashboard")->name("dashboard");
 
     Route::get("/cloudImage/status","CloudImageController@checkStatus");
+    Route::any("/cloudImage/bind/{image}","CloudImageController@bindImage");
+
+    Route::get("/cloudImage/find/course","CloudImageController@findCourse");
+    Route::get("/cloudImage/find/courseItem","CloudImageController@findCourseItem");
 
     Route::post("/upload/video","UploadController@video")->name("upload.video");
     Route::post("/upload/audio","UploadController@audio")->name("upload.audio");

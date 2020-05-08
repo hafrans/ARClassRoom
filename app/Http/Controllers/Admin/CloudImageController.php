@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Api\EasyARClient;
 use App\Api\EasyARClientSdkCRS;
+use App\Course;
+use App\CourseItem;
 use App\Http\Controllers\Controller;
 use App\SImage;
 use Illuminate\Http\Request;
@@ -16,9 +18,7 @@ class CloudImageController extends Controller
     public function index()
     {
 
-
     }
-
 
     public function checkStatusAjax(Request $req, EasyARClient $client)
     {
@@ -75,5 +75,55 @@ class CloudImageController extends Controller
             ]);
         }
     }
+
+
+    public function bindImage(Request $req, SImage $image){
+
+        if ($req->ajax()){
+
+        }else{
+            return view("admin.cloudimage.bind",[
+                "simage" => $image,
+            ]);
+        }
+
+    }
+
+    private function findObject(Request $req, $class){
+        $pending = $class::orderBy("created_at");
+
+        if($req->has("name") || !empty($req->name)){
+            $pending->where("name","like","%$req->name%");
+        }
+
+        if ($req->has("course") && !empty($req->course)){
+            $course = Course::where("name",$req->course)->first();
+
+            if($course != null){
+                $pending->where("course_id",$course->id);
+            }else{
+                return [
+                    "code" => 1, "message" => "课程不存在", "data" => []
+                ];
+            }
+        }
+
+        $result = $pending->select(["id","name"])->limit(5)->get();
+        return [
+            "code" => 0, "message" => "success", "data" => $result
+        ];
+    }
+
+    public function findCourse(Request $req){
+
+        return $this->findObject($req,Course::class);
+
+    }
+
+
+    public function findCourseItem(Request $req){
+        return $this->findObject($req,CourseItem::class);
+    }
+
 
 }

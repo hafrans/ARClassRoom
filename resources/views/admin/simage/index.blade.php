@@ -57,7 +57,7 @@
 
     <script type="text/html" id="barDemo">
         <div class="layui-btn layui-btn-primary layui-btn-xs" lay-event="view">状态查询</div>
-        <div class="layui-btn layui-btn-xs" lay-event="view">绑定知识点</div>
+        <div class="layui-btn layui-btn-xs" lay-event="bind">绑定知识点</div>
         <div class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除条目</div>
     </script>
 
@@ -119,7 +119,7 @@
 
             //监听提交
             form.on('submit(formDemo)', function (data) {
-                table.reload("coco", {
+                table.reload("mytable", {
                     url: "{{url()->current()}}?target=" + data.field.name,
                 });
                 return false;
@@ -158,11 +158,11 @@
                         });
 
                         break;
-                    case 'add':
+                    case 'bind':
                         var index = layer.open({
                             type: 2 //此处以iframe举例
                             ,
-                            title: '课程条目查看'
+                            title: '绑定知识点'
                             ,
                             area: ['1024px', '600px']
                             ,
@@ -170,7 +170,7 @@
                             ,
                             maxmin: true
                             ,
-                            content: '{{action("Admin\CourseItemController@create")}}?course=' + objx.data.id + "&bb=true"
+                            content: '{{url("/admin/cloudImage/bind/")}}/' + objx.data.id
                             ,
                             btn: ['关闭'] //只是为了演示
                             ,
@@ -184,15 +184,14 @@
                                 layer.setTop(layero); //重点2
                             }
                         });
-                        layer.full(index);
                         break;
                     case 'del':
-                        layer.confirm("您在删除该课程的同时，该课程下的所有的知识点均会被删除，且无法恢复！您是否要删除该课程？",
+                        layer.confirm("您确实要删除该识别图吗？",
                             {btn: ['确定', '取消']},
                             function (index, layero) {
                                 var objx = obj;
                                 $.ajax({
-                                    url: "{{action("Admin\CourseController@index")}}/" + obj.data.id,
+                                    url: "{{action("Admin\SImageController@index")}}/" + obj.data.id,
                                     type: "delete",
                                     dataType: "json",
                                     success: function (data) {
