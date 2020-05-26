@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Api\EasyARClient;
 use App\Http\Resources\SImageResource;
 use App\SImage;
 use Illuminate\Contracts\Foundation\Application;
@@ -59,7 +60,8 @@ class SImageController extends Controller
      */
     public function create()
     {
-        //
+
+        return view("admin.simage.create");
     }
 
     /**
@@ -71,6 +73,8 @@ class SImageController extends Controller
     public function store(Request $request)
     {
         //
+        $file = $request->file("img");
+        dump(base64_encode($file->get()));
     }
 
     /**
@@ -114,11 +118,13 @@ class SImageController extends Controller
      * Remove the specified resource from storage.
      *
      * @param SImage $simage
-     * @return Response
+     * @param EasyARClient $client
+     * @return JsonResponse
      */
-    public function destroy(SImage $simage)
+    public function destroy(SImage $simage, EasyARClient $client)
     {
         try{
+            $client->deleteObject($simage->serial_id);
             if($simage->delete()){
                 return response()->json([
                     "code"=>0,

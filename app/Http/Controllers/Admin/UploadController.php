@@ -141,4 +141,16 @@ class UploadController extends Controller
         }
     }
 
+
+    public function showimg(Request $req, $path)
+    {
+        if (empty($path) || !Storage::exists($path)) {
+            abort(404);
+        }
+
+//        exit;
+
+        return response()->file('../storage/app/'.$path);
+    }
+
 }

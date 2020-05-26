@@ -109,7 +109,7 @@ class CourseItemController extends Controller
      * Display the specified resource.
      *
      * @param \App\CourseItem $courseItem
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function show(CourseItem $courseItem)
     {
@@ -140,7 +140,7 @@ class CourseItemController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\CourseItem $courseItem
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function update(Request $request, CourseItem $courseItem)
     {

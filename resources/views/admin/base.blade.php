@@ -56,18 +56,11 @@
                         <dd><a href="{{action("Admin\CourseController@create")}}" target="spanel">课程添加</a></dd>
                     </dl>
                 </li>
-                {{--                <li class="layui-nav-item">--}}
-                {{--                    <a class="" href="javascript:void(0);">课程条目管理</a>--}}
-                {{--                    <dl class="layui-nav-child">--}}
-                {{--                        <dd><a href="javascript:;">课程条目列表</a></dd>--}}
-                {{--                        <dd><a href="javascript:;">课程条目添加</a></dd>--}}
-                {{--                    </dl>--}}
-                {{--                </li>--}}
                 <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;">识别设置</a>
                     <dl class="layui-nav-child">
                         <dd><a href="{{action("Admin\SImageController@index")}}" target="spanel">识别图库</a></dd>
-                        <dd><a href="javascript:;">添加新图片</a></dd>
+                        <dd><a href="{{action("Admin\SImageController@create")}}" target="spanel">添加新图片</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item"><a href=""><i class="layui-icon layui-icon-light"></i> &nbsp; 快速添加条目</a></li>

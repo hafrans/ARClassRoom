@@ -36,6 +36,11 @@
         .layui-table tbody tr:hover, .layui-table-hover {
             background-color: #FFF; /*修改成你自己的颜色*/
         }
+
+        input[readonly] {
+            color:#AAA; !important;
+            border: transparent 0px solid;
+        }
     </style>
 @endsection
 
@@ -47,7 +52,7 @@
         <div class="layui-row">
             <table class="layui-table">
                 <colgroup>
-                    <col width="100">
+                    <col width="140">
                     <col>
                     <col width="100">
                     <col>
@@ -59,13 +64,42 @@
                     <th><b>目标名称</b></th>
                     <td>{{$simage->name}}</td>
                 </tr>
-                <tr>
+                @if (!empty($simage->course_item_id))
+                    <tr>
+                        <td><b>已绑定课程</b></td>
+                        <td colspan="3">
 
-                </tr>
+                            <div class="layui-input-block" style="margin-left: 0;">
+                                <input type="text" name="xcourse" required maxlength="255"
+                                       readonly  class="layui-input" value="{{$simage->courseItem->course->name}}" />
+
+                            </div>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>已经绑定知识点</b></td>
+                        <td colspan="3">
+                            <div class="layui-input-block" style="margin-left: 0;">
+                                <input type="text"  name="xcourse_item" required maxlength="255"
+                                       readonly class="layui-input" value="{{$simage->courseItem->name}}"/>
+
+                            </div>
+                        </td>
+                    </tr>
+                @else
+                    <tr>
+                        <td><b>已绑定课程</b></td>
+                        <td colspan="3">
+                            未绑定任何课程
+                        </td>
+                    </tr>
+                @endif
+
                 <tr>
                     <th><b>图片</b></th>
                     <td colspan="3" style="position: relative">
-                        <img style="max-width:100%; max-height: 200px;"
+                        <img style="max-width:100%; max-height: 150px;"
                              src="{{action("Admin\SImageController@index")}}/{{$simage->id}}"/>
                     </td>
                 </tr>
@@ -76,7 +110,7 @@
                         <div class="layui-input-block" style="margin-left: 0;">
                             <input type="text" name="course" required lay-verify="required" maxlength="255"
                                    placeholder="请输入课程" id="input_course" autocomplete="xxx" class="layui-input" list="courses">
-                            <datalist id="courses">
+                            <datalist id="courses" autofocus="false">
                             </datalist>
                         </div>
 
@@ -97,7 +131,7 @@
                 <tr>
 
                     <td colspan="4" style="text-align: center;">
-                        <button class="layui-btn layui-btn-lg layui-btn-normal">绑定</button>
+                        <button class="layui-btn layui-btn-lg layui-btn-normal" onclick="checkInfo()">绑定</button>
                     </td>
                 </tr>
                 </tbody>
@@ -191,7 +225,7 @@
                 url:"{{url("/admin/cloudImage/find/courseItem")}}",
                 type:"get",
                 dataType:"json",
-                data:"name="+encodeURI(courseItemName.trim())+"&course="+encodeURIComponent(courseName.trim()),
+                data:"name="+encodeURIComponent(courseItemName.trim())+"&course="+encodeURIComponent(courseName.trim()),
                 success:function(data){
                     if(data.code == 0){
 
@@ -221,6 +255,81 @@
         }
 
 
+        function checkInfo(){
+
+            if (document.getElementById("input_course").value.length == 0){
+                layer.msg("需要绑定的课程没有填写！")
+                return false;
+            }
+
+            if (document.getElementById("input_course_item").value.length == 0){
+                layer.msg("需要绑定的知识点没有填写！")
+                return false;
+            }
+
+
+            let formData = {
+                course: document.getElementById("input_course").value,
+                item:document.getElementById("input_course_item").value
+            }
+
+            $.ajax({
+                url: "{{action("Admin\CloudImageController@checkInfoCorrect")}}",
+                type: "get",
+                dataType: "json",
+                data: formData,
+                success(data){
+                    if(data.code == 0){
+
+                        layer.confirm("您是否要绑定到该知识点？",
+                            {btn:['确定','取消']},
+                            function (index, layero) {
+
+                                $.ajax({
+                                    url:"{{action("Admin\CloudImageController@bindCourseItem",["image"=>$simage->id])}}",
+                                    type:"post",
+                                    dataType:"json",
+                                    data:formData,
+                                    success: function(data){
+
+                                        if(data.code == 0){
+                                            layer.msg("绑定成功")
+
+                                            setTimeout(function(){
+                                                window.parent.layer.closeAll()
+                                            },1000);
+
+                                        }else{
+                                            layer.msg("绑定失败")
+                                        }
+                                        layer.close(index)
+
+                                    },
+                                    error:function(jqXhr){
+                                        if (jqXhr.status == 422){
+                                            let obj = JSON.parse(jqXhr.responseText);
+                                            for (let i in obj.errors){
+                                                layer.msg(obj.errors[i][0]);
+                                            }
+                                        }else{
+                                            layer.msg("网络异常")
+                                        }
+                                    }
+                                })
+                            }
+                        )
+
+                    }else{
+                        layer.msg("未找到合适的目标，无法绑定");
+                    }
+                },
+                error(){
+                    layer.msg("网络繁忙，请稍后再试！")
+                }
+            });
+        }
+
+
 
         let debouncedUpdateCourse = debounce(updateCourse, 500);
         let debouncedUpdateCourseItem = debounce(updateCourseItem,500);
@@ -230,15 +339,16 @@
                 debouncedUpdateCourse(e.target.value);
                 formerInput = e.target.value
             }
-        },false);
+        },false); // 课程输入
 
-        document.getElementById("input_course_item").addEventListener("focus",function(e){
+        document.getElementById("input_course").addEventListener("focus",function(e){
             let courseField = document.getElementById("input_course");
             if(courseField.value.length == 0){
-                debouncedUpdateCourseItem("");
+                debouncedUpdateCourse("");
             }
+        },false); // 点击课程
 
-        },false);
+        ////////////////
 
         document.getElementById("input_course_item").addEventListener("input",function(e){
 

@@ -67,7 +67,7 @@ class CloudImageController extends Controller
         $targetId = $simage->serial_id;
         $result = $client->checkStatus($targetId);
         if(is_numeric($result)){
-            abort(500,"云识别库中没有该图片！");
+            abort(500,"云识别库中没有该图片或资源已失效！");
         }else{
             return view("admin.cloudimage.status",[
                 "result" => $result,
@@ -79,15 +79,33 @@ class CloudImageController extends Controller
 
     public function bindImage(Request $req, SImage $image){
 
-        if ($req->ajax()){
-
-        }else{
             return view("admin.cloudimage.bind",[
                 "simage" => $image,
             ]);
+    }
+
+    public function bindCourseItem(Request $req, SImage $image){
+
+        if(!$req->ajax()) abort(404);
+
+        $courseItem = $this->checkInfoAndChangeCourseIdWithoutSave($req->course,$req->item);
+        if ($courseItem){
+
+            $image->course_item_id = $courseItem->id;
+            $image->save();
+
+            return [
+                "code" => 0, "message" => "success", "data" => []
+            ];
+
+        }else{
+            return [
+                "code" => 1, "message" => "modify failed", "data" => []
+            ];
         }
 
     }
+
 
     private function findObject(Request $req, $class){
         $pending = $class::orderBy("created_at");
@@ -123,6 +141,50 @@ class CloudImageController extends Controller
 
     public function findCourseItem(Request $req){
         return $this->findObject($req,CourseItem::class);
+    }
+
+    public function checkInfoCorrect(Request $req){
+
+        if(!$req->ajax()) abort(404);
+
+
+        if(!$req->has("course") || empty($req->course)){
+            return [
+                "code" => 1, "message" => "no course", "data" => []
+            ];
+        }
+
+        if(!$req->has("item") || empty($req->item)){
+            return [
+                "code" => 1, "message" => "no course item", "data" => []
+            ];
+        }
+
+
+
+        if ($this->checkInfoAndChangeCourseIdWithoutSave($req->course, $req->item)){
+            return [
+                "code" => 0, "message" => "success", "data" => []
+            ];
+        }else{
+            return [
+                "code" => 1, "message" => "checking failed", "data" => []
+            ];
+        }
+
+    }
+
+    public function checkInfoAndChangeCourseIdWithoutSave($course,$courseItem){
+
+        if (empty($course) || empty($courseItem)) return false;
+        $sqlCourse = Course::where("name",$course)->first();
+        if($sqlCourse == null) return false;
+
+        $sqlCourseItem = CourseItem::where("name",$courseItem)->where("course_id",$sqlCourse->id)->first();
+
+        if($sqlCourseItem == null) return false;
+
+        return $sqlCourseItem;
     }
 
 

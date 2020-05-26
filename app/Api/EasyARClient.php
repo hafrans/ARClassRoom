@@ -28,8 +28,8 @@ class EasyARClient
     }
 
     /**
-     * @param $image
-     * @param $name
+     * @param $image base64化的image字符串
+     * @param $name 图片名称
      * @param string $meta
      * @param string $active
      * @param string $size
@@ -73,6 +73,12 @@ class EasyARClient
         return $this->getBody($this->clientSdk->targetAdd($reqBody));
     }
 
+
+    public function deleteObject($targetId){
+
+        return $this->getBody($this->clientSdk->delete($targetId));
+    }
+
     public function checkStatus($targetId){
 
         try {
@@ -97,11 +103,13 @@ class EasyARClient
      * @return mixed
      * @throws Exception
      */
-    private function getBody(\stdClass $response){
+    private function getBody( $response){
+
+        if ($response == false){
+            throw new Exception("Failed Remote Resource ");
+        }
 
         if ($response->statusCode != 0) {
-            dump($response);
-            die();
             throw new Exception("StatusCode ".$response->statusCode, $response->statusCode);
         }
         return $response->result;

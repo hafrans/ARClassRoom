@@ -34,14 +34,19 @@ Route::namespace("Admin")->name("admin.")->prefix("/admin")->middleware("auth:we
 
     Route::get("/cloudImage/status","CloudImageController@checkStatus");
     Route::any("/cloudImage/bind/{image}","CloudImageController@bindImage");
+    Route::post("/cloudImage/bind/{image}","CloudImageController@bindCourseItem");
 
     Route::get("/cloudImage/find/course","CloudImageController@findCourse");
     Route::get("/cloudImage/find/courseItem","CloudImageController@findCourseItem");
+    Route::get("/cloudImage/checkInfo","CloudImageController@checkInfoCorrect");
+
 
     Route::post("/upload/video","UploadController@video")->name("upload.video");
     Route::post("/upload/audio","UploadController@audio")->name("upload.audio");
     Route::post("/upload/model","UploadController@model")->name("upload.model");
     Route::post("/upload/image","UploadController@image")->name("upload.image");
+    Route::get("/show/image/{path}","UploadController@showimg")->name("show.image")->where("path",".*");
+
 
     Route::resource("course","CourseController");
     Route::resource("courseItem","CourseItemController");
