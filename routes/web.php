@@ -25,6 +25,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get("/checkstatus2","Admin\CloudImageController@checkStatusAjax");
 
+Route::get("/webar","DisplayController@display");
+Route::get("/webar/target/{target}","DisplayController@findTarget");
 
 Route::namespace("Admin")->name("admin.")->prefix("/admin")->middleware("auth:web")->group(function(){
 

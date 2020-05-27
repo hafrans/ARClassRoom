@@ -83,6 +83,12 @@ class CourseItemController extends Controller
 
         try {
 
+            // find duplicate
+
+            if (CourseItem::where("course_id",$validated["course_id"])->where("name",$validated["name"])->first() != null){
+                throw new \Exception("知识点名称重复！");
+            }
+
             $course = \App\CourseItem::create($validated);
 
             return response()->json([
@@ -151,7 +157,7 @@ class CourseItemController extends Controller
      * Remove the specified resource from storage.
      *
      * @param \App\CourseItem $courseItem
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
     public function destroy(CourseItem $courseItem)
     {

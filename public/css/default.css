@@ -1,0 +1,48 @@
+html,body{
+    height:100%;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background: url(../css/background.png) no-repeat;
+    /* background-color: aqua; */
+    background-size: cover;
+    /* overflow: hidden; */
+}
+.header {
+    padding: 45px;
+    color: rgb(213,253,255);
+    font-size: 30px;
+    font-family: SimHei;
+}
+.ps {
+    padding: 20px;
+    font-size: 20px;
+}
+.openBtn {
+    width: 80%;
+    height: 40px;
+    font-size: 20px;
+    background-color: rgb(43,162,69);
+    color: white;
+    border-radius: 8px;
+    border: none;
+}
+.none {
+    display: none;
+    width: 20%;
+    height: 30px;
+    background-color: rgb(43,162,69);
+    color: white;
+    border-radius: 5px;
+    border: none;
+}
+
+.footer {
+    position: fixed;
+    bottom: 45px;
+    z-index: 100;
+
+    width: 100%;
+    text-align: center;
+}
