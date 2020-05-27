@@ -63,7 +63,7 @@
                         <dd><a href="{{action("Admin\SImageController@create")}}" target="spanel">添加新图片</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href=""><i class="layui-icon layui-icon-light"></i> &nbsp; 快速添加条目</a></li>
+{{--                <li class="layui-nav-item"><a href=""><i class="layui-icon layui-icon-light"></i> &nbsp; 快速添加条目</a></li>--}}
                 <li class="layui-nav-item">
                     <a href="https://portal.easyar.cn/crs/list" target="_blank">云识别管理<span>&nbsp; &nbsp;
                             <i class="layui-icon layui-icon-link"></i></span>

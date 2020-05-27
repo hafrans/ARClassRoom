@@ -148,8 +148,6 @@ class UploadController extends Controller
             abort(404);
         }
 
-//        exit;
-
         return response()->file('../storage/app/'.$path);
     }
 

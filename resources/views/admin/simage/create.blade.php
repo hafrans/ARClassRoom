@@ -57,21 +57,14 @@
                                    placeholder="请输入宽度" autocomplete="off" class="layui-input" value="20">
                             <div style="color: darkgrey">
                                 请输入识别图的宽度（cm）。识别图的高度将由系统根据您上传的图片自动计算。识别图的大小和虚拟内容的大小对应。详见<a
-                                    href="https://help.easyar.cn/EasyAR%20CRS/api/target-create.html#id3">文档说明</a>
+                                    href="https://help.easyar.cn/EasyAR%20CRS/api/target-create.html#id3" target="_blank">文档说明</a>
                             </div>
-                        </div>
-                    </div>
-                    <div class="layui-form-item layui-form-text">
-                        <label class="layui-form-label"></label>
-                        <div class="layui-input-block">
-                            <textarea name="description" placeholder="请输入内容" maxlength="255" rows="15"
-                                      class="layui-textarea"></textarea>
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">验证码</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="captcha" required lay-verify="required" autocomplete="off"
+                            <input type="text" minlength="4" maxlength="4" name="captcha" required lay-verify="required" autocomplete="off"
                                    class="layui-input">
                         </div>
                         <div class="layui-form-mid layui-word-aux"><a
@@ -127,6 +120,7 @@
                 , done: function (res) {
                     layer.closeAll('loading'); //关闭loading
                     layer.msg('上传成功');
+                    formData.image = res.data.path
                     layui.$('#uploadDemoView').removeClass('layui-hide').find('img').attr('src', "/admin/show/image/"+res.data.path);
                     console.log(res)
                 }
@@ -135,27 +129,54 @@
             //监听提交
             form.on('submit(formDemo)', function (data) {
 
-                if (data.field.name.length <= 3) {
-                    layer.msg("课程名称长度过小")
+                // alert(JSON.stringify(data))
+                // return false;
+
+
+                if (data.field.name.length < 3) {
+                    layer.msg("图片名称长度过小")
+                    return false;
+                }
+                if (data.field.name.length > 64) {
+                    layer.msg("图片名称长度过大")
                     return false;
                 }
 
-                if (data.field.description.length <= 3) {
-                    layer.msg("课程介绍长度过小")
+                if (data.field.meta.length < 3) {
+                    layer.msg("元数据长度过小")
                     return false;
                 }
+
+                if (data.field.meta.length > 512) {
+                    layer.msg("元数据长度过大")
+                    return false;
+                }
+
+                if (data.field.captcha.length !== 4){
+                    layer.msg("验证码不标准")
+                    return false;
+                }
+
+                if(formData.image == null){
+                    layer.msg("图片未上传")
+                    return false;
+                }
+
+                //alert(JSON.stringify(Object.assign({},formData,data.field)))
 
                 //check ok
 
                 $.ajax({
-                    url: "{{action("Admin\CourseController@store")}}",
+                    url: "{{action("Admin\SImageController@store")}}",
                     type: "post",
                     dataType: "json",
-                    data: data.field,
+                    data: Object.assign({},formData,data.field),
                     success: function (data) {
                         if (data.code == 0) {
-                            layer.msg("课程创建成功")
-                            setTimeout(() => location.href = '{{action("Admin\CourseController@index")}}', 1500);
+                            layer.msg("创建成功")
+                            setTimeout(() => location.href = '{{action("Admin\SImageController@index")}}', 1500);
+                        }else{
+                            layer.msg(data.msg);
                         }
                     },
                     error: function (jqXhr) {

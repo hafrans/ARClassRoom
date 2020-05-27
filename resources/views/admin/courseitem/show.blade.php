@@ -74,7 +74,7 @@
                     <th><b>创建时间</b></th>
                     <td>{{$item->created_at}}</td>
                     <th><b>识别ID</b></th>
-                    <td>@if (count($item->simages) == 0) 未绑定图片 @else {{$item->simage->serial_id[0]}} @endif</td>
+                    <td>@if (count($item->simages) == 0) 未绑定图片 @else 已绑定{{count($item->simages)}}张图片 @endif</td>
                 </tr>
                 <tr>
                     <th><b>文字介绍</b></th>

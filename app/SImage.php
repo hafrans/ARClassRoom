@@ -14,6 +14,10 @@ class SImage extends Model
 
     protected $dateFormat = "Y-m-d H:i:s";
 
+    protected $fillable = [
+        "name","path","serial_id","meta"
+    ];
+
     public function courseItem(){
         return $this->belongsTo("App\CourseItem", "course_item_id");
     }

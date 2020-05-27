@@ -109,8 +109,9 @@
 
                         <div class="layui-input-block" style="margin-left: 0;">
                             <input type="text" name="course" required lay-verify="required" maxlength="255"
-                                   placeholder="请输入课程" id="input_course" autocomplete="xxx" class="layui-input" list="courses">
+                                   placeholder="请输入课程" id="input_course" autocomplete="off" class="layui-input" list="courses">
                             <datalist id="courses" autofocus="false">
+                                <option disabled>正在加载中...</option>
                             </datalist>
                         </div>
 
@@ -121,9 +122,9 @@
                     <td colspan="3">
                         <div class="layui-input-block" style="margin-left: 0;">
                             <input type="text" name="course_item" required lay-verify="required" maxlength="255"
-                                   placeholder="请输入课程" id="input_course_item" autocomplete="xxx" class="layui-input" list="course_items">
+                                   placeholder="请输入课程" id="input_course_item" autocomplete="off" class="layui-input" list="course_items">
                             <datalist id="course_items">
-
+                                <option disabled>正在加载中...</option>
                             </datalist>
                         </div>
                     </td>

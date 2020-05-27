@@ -189,7 +189,6 @@
                                     type:"delete",
                                     dataType:"json",
                                     success: function(data){
-                                        layer.msg(JSON.stringify(data))
 
                                         if(data.code == 0){
                                             layer.msg("删除成功")

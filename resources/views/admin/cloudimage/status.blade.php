@@ -67,7 +67,7 @@
                 </tr>
                 <tr>
                     <th><b>识别困难度评分</b></th>
-                    <td colspan="2"><strong style="font-size: larger">{{$result->grade}}</strong>&nbsp;&nbsp;&nbsp;<i style="float: right;font-size: 0.7rem">参考： -1:图像错误; 0,1:目标易检测; 2:一般; 3,4: 目标难以检测</i></td>
+                    <td colspan="2"><strong style="font-size: larger">{{$result->detectableRate}}</strong>&nbsp;&nbsp;&nbsp;<i style="float: right;font-size: 0.7rem">参考： -1:图像错误; 0,1:目标易检测; 2:一般; 3,4: 目标难以检测</i></td>
                     <td>绑定状态：@if (empty($simage->course_item_id)) 未绑定任何知识点@else <strong>已绑定到知识点</strong>@endif</td>
                 </tr>
                 <tr>
@@ -96,7 +96,7 @@
                 <tr>
                     <th><b>图片</b></th>
                     <td colspan="3" style="position: relative">
-                        <img style="max-width:100%;" src="{{action("Admin\SImageController@index")}}/{{$simage->id}}" />
+                        <img style="max-width:100%;max-height: 150px" src="{{action("Admin\SImageController@index")}}/{{$simage->id}}" />
                     </td>
                 </tr>
                 </tbody>

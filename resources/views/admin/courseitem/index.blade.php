@@ -227,7 +227,7 @@
                         )
                         break;
                     case 'edit':
-                        layer.msg('编辑');
+                        layer.msg('暂时不支持编辑');
                         break;
                 };
 

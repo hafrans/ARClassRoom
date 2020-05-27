@@ -115,4 +115,8 @@ class EasyARClient
         return $response->result;
     }
 
+    public function getGrade($targetId){
+
+    }
+
 }
