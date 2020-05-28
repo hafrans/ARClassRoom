@@ -4,22 +4,52 @@
     <meta charset="UTF-8">
     <title>AR 课堂</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="max-age=7200" />
     <link rel="stylesheet" href="{{asset("css/default.css",true)}}" />
 </head>
 <body>
+
+<div class="camera-tip">
+    <p>正在打开摄像头...</p>
+</div>
+
+
+<div class="movie">
+    <div class="movie-btn">
+        &nbsp;
+    </div>
+    <video id="movie" webkit-playsinline="true" controls="controls" autoplay="autoplay"></video>
+</div>
+
+<div class="content">
+    <div class="theader">
+        <strong>知识点：</strong>
+        <span id="title"></span>
+    </div>
+    <div id="textcontent">
+    <p id="text"></p>
+    </div>
+</div>
+
+
+
 <!-- <div class="header">
     通信网课程小工具
     <div class="ps">遇到难点扫一扫</div>
 </div> -->
-<div class="footer">
+<div class="footer" style="display: none">
     <input class="openBtn" type="button" value="打开摄像头" id="openCamera" />
     <select class="none" id="videoDevice"></select>
     <input class="none" type="button" value="开始识别" id="start" />
     <input class="none" type="button" value="停止识别" id="stop" />
 </div>
-
+<script type="text/javascript" src="{{asset("static/three/three.min.js",true)}}"></script>
+<script type="text/javascript" src="{{asset("static/three/inflate.min.js",true)}}"></script>
+<script type="text/javascript" src="{{asset("static/three/FBXLoader.js",true)}}"></script>
+<script type="text/javascript" src="{{asset("static/three/OrbitControls.js",true)}}"></script>
 <script type="text/javascript" src="{{asset("js/adapter.js",true)}}"></script>
 <script type="text/javascript" src="{{asset("js/webar.js",true)}}"></script>
+<script type="text/javascript" src="{{asset("js/ThreeHelper.js",true)}}"></script>
 <script>
     (function(){
 
@@ -28,7 +58,12 @@
         const e = document.createElement('script');
         e.setAttribute('src', `{{asset("js/arapp.js",true)}}?t=${now}`);
         document.body.appendChild(e);
+
     })();
+
+
+
+
 </script>
 </body>
 </html>
