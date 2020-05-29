@@ -14,7 +14,7 @@
         <div class="layui-row">
             <div class="layui-col-md12">
                 <div style="font-weight: 300; font-size: 1.5rem; padding-left: 1.25rem">
-                    {{env("APP_NAME")}} <sub style="font-size: 0.2rem">v0.1</sub>
+                    {{env("APP_NAME")}} <sub style="font-size: 0.2rem">v0.9</sub>
                     <br>
                     <br>
                 </div>
@@ -71,11 +71,11 @@
                             <tbody>
                             <tr>
                                 <th>发布日期</th>
-                                <td>2020-05-28 02:56:11</td>
+                                <td>2020-05-28 10:56:11</td>
                             </tr>
                             <tr>
                                 <td>版本号</td>
-                                <td>0.9.1.05280256.SNAPSHOT</td>
+                                <td>0.9.2.05281156.SNAPSHOT</td>
                             </tr>
                             <tr>
                                 <td>联系方式</td>
