@@ -20,7 +20,8 @@ function ARStartCamera(){
             // };
             // 打开摄像头
             // 打开后置摄像头参数： {audio: false, video: {facingMode: {exact: 'environment'}}}
-            return webAR.openCamera(JSON.parse(videoSelect.value))
+
+            return webAR.openCamera({audio: false, video: {facingMode: "environment"}})
                 .then(msg => {
                     console.info(msg);
                 });

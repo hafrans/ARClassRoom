@@ -24,7 +24,7 @@ class CreateSImagesTable extends Migration
             $table->timestamps();
 
             $table->foreign("course_item_id")->references("id")->on("ar_course_items")
-                  ->onUpdate("cascade")->onDelete("cascade");
+                  ->onUpdate("cascade")->onDelete("set null");
 
             $table->engine = "InnoDB";
             $table->charset = "utf8mb4";

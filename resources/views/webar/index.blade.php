@@ -13,6 +13,16 @@
     <p>正在打开摄像头...</p>
 </div>
 
+<div id="pageWxIos" class="maskerMsg none">
+    <div class="masker"></div>
+    <div>
+        <img class="icon-wx-ios" src="{{asset("static/img/share_ios.png",true)}}">
+        <div class="tip">
+            <div>请点击右上角<br>选择“在Safari中打开”</div>
+        </div>
+    </div>
+</div>
+
 
 <div class="movie">
     <div class="movie-btn">
@@ -53,11 +63,16 @@
 <script>
     (function(){
 
-        const now = (new Date()).getTime();
+        if (navigator.userAgent.includes("MicroMessenger") && navigator.userAgent.includes("iPhone") ){
+            document.getElementById("pageWxIos").setAttribute("class","maskerMsg");
+        }else{
+            const now = (new Date()).getTime();
+            const e = document.createElement('script');
+            e.setAttribute('src', `{{asset("js/arapp.js",true)}}?t=${now}`);
+            document.body.appendChild(e);
+        }
 
-        const e = document.createElement('script');
-        e.setAttribute('src', `{{asset("js/arapp.js",true)}}?t=${now}`);
-        document.body.appendChild(e);
+
 
     })();
 

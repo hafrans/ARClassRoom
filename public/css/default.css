@@ -1,5 +1,5 @@
-html,body{
-    height:100%;
+html, body {
+    height: 100%;
 }
 
 
@@ -12,44 +12,43 @@ body {
     /* overflow: hidden; */
 }
 
-.camera-tip{
+.camera-tip {
     position: absolute;
     top: 45%;
     width: 100%;
     z-index: -2;
     text-align: center;
-    color:whitesmoke;
+    color: whitesmoke;
 }
-
-
-
-
 
 
 .header {
     padding: 45px;
-    color: rgb(213,253,255);
+    color: rgb(213, 253, 255);
     font-size: 30px;
     font-family: SimHei;
 }
+
 .ps {
     padding: 20px;
     font-size: 20px;
 }
+
 .openBtn {
     width: 80%;
     height: 40px;
     font-size: 20px;
-    background-color: rgb(43,162,69);
+    background-color: rgb(43, 162, 69);
     color: white;
     border-radius: 8px;
     border: none;
 }
+
 .none {
     display: none;
     width: 20%;
     height: 30px;
-    background-color: rgb(43,162,69);
+    background-color: rgb(43, 162, 69);
     color: white;
     border-radius: 5px;
     border: none;
@@ -71,7 +70,7 @@ body {
     z-index: 90;
 }
 
-.content{
+.content {
 
     position: fixed;
     height: 23vh;
@@ -79,20 +78,22 @@ body {
     bottom: 0%;
     left: 0;
     z-index: 80;
-    background: rgba(128,128,128,0.5);
+    background: rgba(128, 128, 128, 0.5);
     padding-top: 1%;
     overflow: hidden;
     display: none;
 
 
 }
-.content > .theader{
+
+.content > .theader {
     position: relative;
     width: 94%;
     margin: 0 auto;
     height: 20%;
 }
-.content > #textcontent{
+
+.content > #textcontent {
     position: relative;
     top: 0;
     left: 0;
@@ -107,21 +108,23 @@ body {
     overflow-x: hidden;
 }
 
-#textcontent > p{
+#textcontent > p {
     position: relative;
     width: 94%;
     word-break: break-all;
     margin: 0 auto;
     pointer-events: none;
 }
-.movie{
+
+.movie {
     display: none;
 }
-.movie .movie-btn{
+
+.movie .movie-btn {
     height: 3rem;
     width: 3rem;
     border-radius: 50%;
-    background: center / 70%  no-repeat url(../static/img/movie.png) ;
+    background: center / 70% no-repeat url(../static/img/movie.png);
     position: fixed;
     right: 1%;
     top: 10vh;
@@ -130,10 +133,108 @@ body {
     z-index: 150;
 }
 
-.movie video{
+.movie video {
     width: 100%;
     position: fixed;
-    z-index:100;
+    z-index: 100;
     top: 25%;
     display: none;
+}
+
+
+body, html {
+    overflow: hidden;
+    height: 100vh
+}
+
+#pageFirst, body, html {
+    height: 100vh
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    border: 0
+}
+
+body {
+    position: relative;
+    font-size: 62.5%;
+    background-color: #FFF;
+    overflow-x: hidden;
+    overflow-y: hidden
+}
+
+.none {
+    display: none
+}
+
+.center {
+    text-align: center
+}
+
+#video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0
+}
+
+#pageFirst {
+    width: 100%
+}
+
+#pageFirst #iosWxMini {
+    text-align: center;
+    color: #ffc935;
+    font-size: 2vh;
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    top: 22vh
+}
+
+
+#pageWxIos .tip {
+    top: 9vh;
+    right: 18vh
+}
+
+
+.maskerMsg, .page-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%
+}
+
+.page-bg {
+    height: 100%;
+    z-index: 1
+}
+
+.maskerMsg {
+    z-index: 50000;
+    text-align: center
+}
+
+.maskerMsg .masker {
+    width: 100%;
+    height: 100vh;
+    background-color: #000;
+    opacity: .6
+}
+
+#pageWxIos .icon-wx-ios {
+    position: absolute;
+    top: 3vh;
+    right: 3vh;
+    height: 10vh;
+}
+#pageWxIos .tip {
+    position: absolute;
+    top: 9vh;
+    right: 18vh;
+    color:white;
+    font-size:0.75rem;
 }
