@@ -28,7 +28,7 @@
     <div class="movie-btn">
         &nbsp;
     </div>
-    <video id="movie" webkit-playsinline="true" controls="controls" autoplay="autoplay"></video>
+    <video id="movie" webkit-playsinline="true" controls="controls" preload="preload"></video>
 </div>
 
 <div class="content">
@@ -72,13 +72,7 @@
             document.body.appendChild(e);
         }
 
-
-
     })();
-
-
-
-
 </script>
 </body>
 </html>
