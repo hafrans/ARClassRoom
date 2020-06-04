@@ -85,11 +85,11 @@ class CourseItemController extends Controller
 
             // find duplicate
 
-            if (CourseItem::where("course_id",$validated["course_id"])->where("name",$validated["name"])->first() != null){
+            if (CourseItem::where("course_id", $validated["course_id"])->where("name", $validated["name"])->first() != null) {
                 throw new \Exception("知识点名称重复！");
             }
 
-            $course = \App\CourseItem::create($validated);
+            $course = CourseItem::create($validated);
 
             return response()->json([
                 "code" => 0,
@@ -114,16 +114,16 @@ class CourseItemController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\CourseItem $courseItem
+     * @param CourseItem $courseItem
      * @return Application|Factory|View
      */
     public function show(CourseItem $courseItem)
     {
-        if($courseItem == null){
+        if ($courseItem == null) {
             abort(500);
         }
 
-        return view("admin.courseitem.show",[
+        return view("admin.courseitem.show", [
             "item" => $courseItem,
             "course" => $courseItem->course
         ]);
@@ -133,30 +133,73 @@ class CourseItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\CourseItem $courseItem
-     * @return \Illuminate\Http\Response
+     * @param CourseItem $courseItem
+     * @return Application|Factory|View
      */
     public function edit(CourseItem $courseItem)
     {
-        //
+        if ($courseItem == null) {
+            abort(500);
+        }
+
+        return view("admin.courseitem.edit", [
+            "item" => $courseItem,
+            "course" => $courseItem->course
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\CourseItem $courseItem
-     * @return void
+     * @param CourseItemRequest $request
+     * @param CourseItem $courseItem
+     * @return JsonResponse
      */
-    public function update(Request $request, CourseItem $courseItem)
+    public function update(CourseItemRequest $request, CourseItem $courseItem)
     {
-        //
+        $validated = $request->validated();
+
+        try {
+
+            if ($validated["name"] != $courseItem->name) { // 如果把名字都改了
+                // find duplicate
+                if (CourseItem::where("course_id", $validated["course_id"])->where("name", $validated["name"])->first() != null) {
+                    throw new \Exception("知识点名称重复！");
+                }
+            }
+
+            if ($courseItem->update($validated)) {
+                return response()->json([
+                    "code" => 0,
+                    "message" => "success",
+                    "data" => [
+                        "id" => $courseItem->id,
+                        "name" => $courseItem->name,
+                    ]
+                ]);
+            }else{
+                return response()->json([
+                    "code" => 1,
+                    "message" => "failed",
+                    "data" => null,
+                ]);
+            }
+
+        } catch (\Exception $e) {
+            return response()->json([
+                "errors" => [
+                    "name" => [$e->getMessage()]
+                ]
+            ], 422);
+        }
+
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\CourseItem $courseItem
+     * @param CourseItem $courseItem
      * @return JsonResponse
      */
     public function destroy(CourseItem $courseItem)
