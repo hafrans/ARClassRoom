@@ -28,7 +28,7 @@ class CourseRequest extends FormRequest
             //
             "name" => 'bail|required|unique:ar_courses|max:255|min:3',
             "description" => 'bail|required|max:255|min:3',
-            "captcha" => 'bail|required|captcha'
+//            "captcha" => 'bail|required|captcha'
         ];
     }
 

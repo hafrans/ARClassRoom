@@ -32,7 +32,7 @@ class CourseItemRequest extends FormRequest
             "graph_path" => "bail|nullable",
             "model_path" => "bail|nullable",
             "content" => "bail|nullable|max:20000",
-            "captcha" => "bail|required|captcha",
+//            "captcha" => "bail|required|captcha",
         ];
     }
 

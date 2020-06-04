@@ -29,7 +29,7 @@ class SImageRequest extends FormRequest
             "name" => "bail|required|unique:ar_s_images|min:3|max:64",
             "meta" => "bail|nullable|min:3|max:512",
             "size" => "bail|required|numeric",
-            "captcha" => "bail|required|captcha",
+//            "captcha" => "bail|required|captcha",
         ];
     }
 
