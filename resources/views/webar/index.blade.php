@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="Cache-Control" content="max-age=7200" />
     <link rel="stylesheet" href="{{asset("css/default.css",true)}}" />
-    <link rel="stylesheet" href="{{asset("static/jquery-photo-gallery/jquery.js",true)}}" />
-    <link rel="stylesheet" href="{{asset("static/jquery-photo-gallery/jquery.photo.gallery.js",true)}}" />
+    <script src="{{asset("static/jquery-photo-gallery/jquery.js",true)}}" ></script>
+    <script src="{{asset("static/jquery-photo-gallery/jquery.photo.gallery.js",true)}}" ></script>
 </head>
 <body>
 
