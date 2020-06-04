@@ -635,8 +635,9 @@ $.extend({
 				top : (document.body.clientHeight - winHeight) /2,
 				width : winWidth,
 				height : winHeight,
-				background: 'rgba(177, 178, 179, 0.6)',
+				background: 'rgba(177, 178, 179, 0.9)',
 				border: '1px solid #6D6D6D',
+                zIndex:99999,
 				'border-radius': '4px'
 			});
 	},
