@@ -50,7 +50,7 @@
     </div>
 </div>
 
-<div class="image">
+<div class="image gallerys">
     <div class="image-btn">&nbsp;</div>
     <img id="image" class="image-content gallery-pic" onclick="$.openPhotoGallery(this)" />
 </div>
