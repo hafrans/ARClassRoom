@@ -279,7 +279,7 @@ body {
 
 
 #scanline{
-    display: block;
+    display: none;
     position: fixed;
     width: 75vw;
     height: 75vw;
