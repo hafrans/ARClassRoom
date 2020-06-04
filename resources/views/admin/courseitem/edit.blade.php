@@ -98,6 +98,27 @@
                         </div>
                     </div>
 
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">知识图谱</label>
+                        <div class="layui-inline">
+                            <div class="layui-upload-drag" id="uploadgraph" style="width: 500px;position: relative">
+                                <i class="layui-icon"></i>
+                                <p style="color:#333">点击上传，或将图片素材拖拽到此处</p>
+                                <div class="layui-hide" id="uploaded_graph">
+                                    <hr>
+                                    {{--                                    <audio type="audio/mp3" controls="controls" style="width: 480px;"/>--}}
+                                    @if(empty($item->graph_path))
+                                        <img style="width: 480px"/>
+                                    @else
+                                        <img style="width: 480px"
+                                             src="{{\Storage::disk("s3")->temporaryUrl($item->graph_path, now()->addMinutes(10))}}"/>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="layui-form-item">
                         <label class="layui-form-label">3D模型素材</label>
                         <div class="layui-inline">
@@ -208,6 +229,7 @@
                 video_path: "{{$item->video_path}}",
                 audio_path: "{{$item->audio_path}}",
                 model_path: "{{$item->model_path}}",
+                graph_path: "{{$item->graph_path}}",
             };
 
             if(multiMediaPartialForm.video_path.length > 5){
@@ -216,6 +238,10 @@
 
             if (multiMediaPartialForm.audio_path.length > 5){
                 layui.$('#uploaded_audio').removeClass('layui-hide');
+            }
+
+            if (multiMediaPartialForm.graph_path.length > 5){
+                layui.$('#uploaded_graph').removeClass('layui-hide');
             }
 
 
@@ -258,6 +284,27 @@
                     console.log(res)
                 }
             });
+
+            // graph
+            upload.render({
+                elem: '#uploadgraph'
+                , accept: "images"
+                , url: '{{route("admin.upload.audio")}}' //改成您自己的上传接口
+                , before: function (obj) { //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                    layer.load(); //上传loading
+                }
+                , error: function (index, upload) {
+                    layer.closeAll('loading'); //关闭loading
+                }
+                , done: function (res) {
+                    layer.closeAll('loading'); //关闭loading
+                    layer.msg('上传成功');
+                    layui.$('#uploaded_graph').removeClass('layui-hide').find('img').attr('src', res.data.temporary);
+                    multiMediaPartialForm.graph_path = res.data.path
+                    console.log(res)
+                }
+            });
+
             // model
             upload.render({
                 elem: '#uploadmodel'

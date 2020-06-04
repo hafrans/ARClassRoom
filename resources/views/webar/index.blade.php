@@ -55,6 +55,11 @@
     <img id="image" class="image-content gallery-pic" onclick="$.openPhotoGallery(this)" />
 </div>
 
+<div class="graph gallerys">
+    <div class="graph-btn">&nbsp;</div>
+    <img id="graph" class="image-content gallery-pic" onclick="$.openPhotoGallery(this)" />
+</div>
+
 
 
 <!-- <div class="header">

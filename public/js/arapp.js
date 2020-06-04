@@ -6,7 +6,7 @@ const threeHelper = new ThreeHelper();
 
 let playFlag = false;
 let imageFlag = false;
-
+let graphFlag = false;
 let modelFlag = false;
 
 function ARStartCamera(){
@@ -67,6 +67,7 @@ function ARStart(){
                             threeHelper.loadObject(setting);
                         }
 
+
                         if (resp.data.content != null){
                             document.querySelector(".content").style.display = "block";
                             document.getElementById("text").innerText = resp.data.content;
@@ -82,6 +83,11 @@ function ARStart(){
                             document.getElementById("image").setAttribute("src",resp.data.audio);
                         }
 
+                        if (resp.data.graph != null){
+                            document.querySelector(".graph").style.display = "block";
+                            document.getElementById("graph").setAttribute("src",resp.data.graph);
+                        }
+
                         if (!modelFlag){
                             document.getElementById("loading").style.display = "none";
 
@@ -94,6 +100,12 @@ function ARStart(){
                             if (resp.data.video != null){
                                 playFlag = true
                                 document.getElementById("movie").style.display = "block";
+                                return true
+                            }
+
+                            if (resp.data.graph != null){
+                                graphFlag = true
+                                document.getElementById("graph").style.display = "block";
                                 return true
                             }
 
@@ -120,6 +132,8 @@ function ARStart(){
                 }else{
                     // server error
                     console.log(xmlHttp.status);
+                    ARStop()
+                    ARStart()
                 }
             }
         }
@@ -167,6 +181,17 @@ document.querySelector(".image-btn").addEventListener("click",function(){
         document.getElementById("image").style.display = "block";
     }
     imageFlag = !imageFlag
+},false);
+
+
+document.querySelector(".graph-btn").addEventListener("click",function(){
+    if (graphFlag){
+        document.getElementById("graph").style.display = "none";
+    }else{
+
+        document.getElementById("graph").style.display = "block";
+    }
+    graphFlag = !graphFlag
 },false);
 
 if (false){

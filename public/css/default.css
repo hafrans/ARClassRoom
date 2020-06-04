@@ -147,7 +147,7 @@ body {
     display: none;
 }
 
-.image .image-btn{
+.image  .image-btn, .graph  .graph-btn {
     height: 3rem;
     width: 3rem;
     border-radius: 50%;
@@ -159,6 +159,17 @@ body {
     box-shadow: 0px 0px 10px 1px #FFFFFE inset;
     z-index: 150;
 }
+
+.graph {
+    display: none;
+}
+
+.graph .graph-btn{
+    left: 1%;
+    right: auto;
+    background: center / 70% no-repeat url(../static/img/connection.png);
+}
+
 
 .movie {
     display: none;
@@ -224,7 +235,7 @@ body {
     z-index: 0
 }
 
-#image{
+#image, #graph{
     position: absolute;
     z-index: 999;
     width: 70vw;

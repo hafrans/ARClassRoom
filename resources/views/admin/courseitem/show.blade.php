@@ -110,6 +110,19 @@
                         @endif
                     </td>
                 </tr>
+                <tr>
+                    <th>
+                        <b>知识图谱</b>
+                    </th>
+                    <td colspan="3">
+                        @if (empty($item->graph_path))
+                            无知识图谱
+                        @else
+                            <img style="max-width: 300px; max-height: 300px"
+                                 src="{{\Illuminate\Support\Facades\Storage::disk("s3")->temporaryUrl($item->graph_path,now()->addMinutes(10))}}"/>
+                        @endif
+                    </td>
+                </tr>
 
                 <tr>
                     <th><b>3D建模</b></th>

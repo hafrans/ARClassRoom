@@ -20,6 +20,7 @@ class CourseItem extends Model
         "content",
         "video_path",
         "audio_path",
+        "graph_path",
         "model_path",
     ];
 

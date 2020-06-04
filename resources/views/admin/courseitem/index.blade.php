@@ -117,6 +117,17 @@
                         hide:true
                     },
                     {
+                        field: "hasGraph",
+                        title: "知识图谱",
+                        type:"normal",
+                        unresize: true,
+                        width: 100
+                    },
+                    {
+                        field:"graph_path",
+                        hide:true
+                    },
+                    {
                         field: "hasModel",
                         title: "3D模型素材",
                         type:"normal",

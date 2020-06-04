@@ -19,6 +19,7 @@ class CreateCourseItemsTable extends Migration
             $table->text("video_path")->nullable(true);
             $table->text("audio_path")->nullable(true);
             $table->text("model_path")->nullable(true);
+            $table->text("graph_path")->nullable(true);
             $table->text("content")->nullable(true);
             $table->unsignedBigInteger("course_id");
             $table->timestamps();

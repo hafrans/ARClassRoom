@@ -39,6 +39,7 @@ class DisplayController extends Controller
                   "model" => $image->courseItem->model_path == null ? null : $s3->temporaryUrl($image->courseItem->model_path,now()->addMinutes(10)),
                   "video" => $image->courseItem->video_path == null ? null : $s3->temporaryUrl($image->courseItem->video_path,now()->addMinutes(10)),
                   "audio" => $image->courseItem->audio_path == null ? null : $s3->temporaryUrl($image->courseItem->audio_path,now()->addMinutes(10)),
+                  "graph" => $image->courseItem->graph_path == null ? null : $s3->temporaryUrl($image->courseItem->graph_path,now()->addMinutes(10)),
                   "content" => $image->courseItem->content
               ]
             ];
