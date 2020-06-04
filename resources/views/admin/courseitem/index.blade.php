@@ -228,7 +228,7 @@
                     case 'edit':
                         var index = layer.open({
                             type: 2 //此处以iframe举例
-                            ,title: '课程条目查看'
+                            ,title: '课程条目修改'
                             ,area: ['1024px', '600px']
                             ,shade: 1
                             ,maxmin: true
