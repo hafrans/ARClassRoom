@@ -42,7 +42,6 @@
 
                     </div>
 
-
                 </form>
 
                 <hr>
@@ -227,7 +226,7 @@
                         )
                         break;
                     case 'edit':
-                        layer.msg('暂时不支持编辑');
+                        location.href = '{{action("Admin\CourseItemController@index")}}/'+obj.data.id+ "/edit"
                         break;
                 };
 
