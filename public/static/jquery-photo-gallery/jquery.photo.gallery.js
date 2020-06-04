@@ -626,7 +626,7 @@ $.extend({
 		localStorage["photoGalleryActiveIndex"] = activeIndex;
 
 		$("#J_pg").remove();
-		$("<iframe></iframe").appendTo("body")
+		$("<iframe></iframe>").appendTo("body")
 			.attr("id", "J_pg")
 			.attr("src", "/static/jquery-photo-gallery/gallery.html")
 			.css({
