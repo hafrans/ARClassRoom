@@ -23,11 +23,18 @@
     </div>
 </div>
 
+<div id="loading"></div>
+<div id="scanline">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <p>请将目标对准识别框中</p>
+    <i></i>
+</div>
 
 <div class="movie">
-    <div class="movie-btn">
-        &nbsp;
-    </div>
+    <div class="movie-btn">&nbsp;</div>
     <video id="movie" webkit-playsinline="true" controls="controls" preload="preload"></video>
 </div>
 

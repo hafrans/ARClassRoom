@@ -264,3 +264,115 @@ body {
     color:white;
     font-size:0.75rem;
 }
+
+
+#loading {
+    background: transparent center / contain no-repeat url(../static/img/loading.svg);
+    display: none;
+    position: fixed;
+    width: 30vh;
+    height: 30vh;
+    top: 24vh;
+    left: calc( 50vw - 15vh );
+    z-index: 999;
+}
+
+
+#scanline{
+    display: block;
+    position: fixed;
+    width: 75vw;
+    height: 75vw;
+    top: 18vh;
+    left: 12.5vw;
+}
+
+#scanline > p{
+    width: 100%;
+    height: 1.5rem;
+    position: absolute;
+    text-align: center;
+    bottom: -2.2rem;
+    left: 0;
+    color: #00FFFF;
+    font-size: 1rem;
+}
+
+#scanline > i{
+    display: block;
+    position: absolute;
+    width: 86%;
+    height: 2px;
+    top: 10%;
+    left: 7%;
+    background: #00F7DE;
+    animation: scan 3s 0s linear infinite;
+    box-shadow: #00FFFF 0px -1px 6px 1px;
+
+}
+
+#scanline  span {
+    display: block;
+    position: absolute;
+    width: 10%;
+    height: 10%;
+    border: #007DDB 3px solid;
+    animation: blink 1s 0s infinite;
+}
+
+#scanline > span:nth-of-type(1){
+    border-bottom: none;
+    border-right: none;
+    top: 0;
+    left: 0;
+}
+
+#scanline > span:nth-of-type(2){
+    border-left: none;
+    border-bottom: none;
+    top: 0;
+    right: 0;
+}
+
+#scanline > span:nth-of-type(3){
+    border-top: none;
+    border-right: none;
+    bottom: 0;
+    left: 0;
+}
+
+#scanline > span:nth-of-type(4){
+    border-top: none;
+    border-left: none;
+    bottom: 0;
+    right: 0;
+}
+
+
+@keyframes blink {
+
+    0% {
+        opacity: 1;
+    }
+
+    50%{
+        opacity: 0;
+    }
+
+    100%{
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes scan {
+    0% {
+        top: 10%;
+    }
+
+    100%{
+        top: 90%;
+    }
+}
+

@@ -35,6 +35,10 @@ class ThreeHelper {
         const loader = new THREE.FBXLoader();
         loader.load(setting.model, (object) => {
             console.log(object)
+            let elem =  document.getElementById("loading")
+            if (elem != null){
+                document.getElementById("loading").style.display = "none"
+            }
             object.scale.setScalar(setting.scale);
             object.position.set(setting.position[0], setting.position[1], setting.position[1]);
             this.scene.add(object);
@@ -45,5 +49,6 @@ class ThreeHelper {
             }
         });
     }
+
 }
 //# sourceMappingURL=ThreeHelper.js.map

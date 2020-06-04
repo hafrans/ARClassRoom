@@ -6,6 +6,8 @@ const threeHelper = new ThreeHelper();
 
 let playFlag = false;
 
+let modelFlag = false;
+
 function ARStartCamera(){
     const videoSelect = document.querySelector('#videoDevice');
     return webAR.listCamera(videoSelect)
@@ -29,9 +31,13 @@ function ARStartCamera(){
 
 }
 
-function ARStart(){
 
+
+function ARStart(){
+    document.getElementById("scanline").style.display = "block";
     webAR.startRecognize((msg) => {
+        document.getElementById("scanline").style.display = "none";
+        document.getElementById("loading").style.display = "block";
         console.info(msg);
         let targetId = msg.target.targetId;
         let xmlHttp = new XMLHttpRequest();
@@ -51,6 +57,7 @@ function ARStart(){
                         document.querySelector("#title").innerText = resp.data.kname;
 
                         if (resp.data.model != null){
+                            modelFlag = true;
                             const setting = {
                                 model: resp.data.model,
                                 scale: 0.02,
@@ -67,6 +74,10 @@ function ARStart(){
                         if (resp.data.video != null){
                             document.querySelector(".movie").style.display = "block";
                             document.getElementById("movie").setAttribute("src",resp.data.video);
+                        }
+
+                        if (!modelFlag){
+                            document.getElementById("loading").style.display = "none";
                         }
 
 
@@ -96,6 +107,7 @@ function ARStart(){
 
 function ARStop(){
     webAR.stopRecognize();
+
 }
 
 
