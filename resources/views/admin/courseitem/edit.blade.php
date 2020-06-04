@@ -314,7 +314,7 @@
                     success: function (data) {
                         if (data.code == 0) {
                             layer.msg("知识点修改成功")
-                            setTimeout(() => location.href = '{{action("Admin\CourseItemController@index")}}?course={{$course->id}}', 1500);
+                            setTimeout(() => window.parent.location.href = '{{action("Admin\CourseItemController@index")}}?course={{$course->id}}', 1500);
                         }
                     },
                     error: function (jqXhr) {
