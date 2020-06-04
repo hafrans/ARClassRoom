@@ -154,7 +154,7 @@ body {
     background: center / 70% no-repeat url(../static/img/picture.png);
     position: fixed;
     right: 1%;
-    top:5rem;
+    top:2rem;
     border: 1px whitesmoke solid;
     box-shadow: 0px 0px 10px 1px #FFFFFE inset;
     z-index: 150;
@@ -171,7 +171,7 @@ body {
     background: center / 70% no-repeat url(../static/img/movie.png);
     position: fixed;
     right: 1%;
-    top: 9rem;
+    top: 6rem;
     border: 1px whitesmoke solid;
     box-shadow: 0px 0px 10px 1px #FFFFFE inset;
     z-index: 150;
@@ -227,10 +227,10 @@ body {
 #image{
     position: absolute;
     z-index: 1;
-    width: 80vw;
-    height: 80vw;
+    width: 70vw;
+    height: 70vw;
     top: 25vw;
-    left: 10vw;
+    left: 15vw;
 }
 
 #pageFirst {
