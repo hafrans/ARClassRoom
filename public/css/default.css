@@ -154,7 +154,7 @@ body {
     background: center / 70% no-repeat url(../static/img/picture.png);
     position: fixed;
     right: 1%;
-    top:5vh;
+    top:3vh;
     border: 1px whitesmoke solid;
     box-shadow: 0px 0px 10px 1px #FFFFFE inset;
     z-index: 150;
