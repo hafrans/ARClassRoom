@@ -24,6 +24,10 @@
         </div>
     </div>
 </div>
+<img src="/static/img/conncetion.png" style="display: none;">
+<img src="/static/img/loading.svg" style="display: none;">
+<img src="/static/img/movie.png" style="display: none;">
+<img src="/static/img/picture.png" style="display: none;">
 
 <div id="loading"></div>
 <div id="scanline">

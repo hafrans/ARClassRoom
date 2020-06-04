@@ -232,7 +232,8 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 0
+    z-index: 0;
+    display: none;
 }
 
 #image, #graph{
@@ -242,6 +243,7 @@ body {
     height: 70vw;
     top: 25vw;
     left: 15vw;
+    display: none;
 }
 
 #pageFirst {
