@@ -147,7 +147,7 @@ body {
     display: none;
 }
 
-.image  .image-btn, .graph  .graph-btn {
+.image-btn, .graph-btn {
     height: 3rem;
     width: 3rem;
     border-radius: 50%;
@@ -157,7 +157,7 @@ body {
     top:2rem;
     border: 1px whitesmoke solid;
     box-shadow: 0px 0px 10px 1px #FFFFFE inset;
-    z-index: 150;
+    z-index: 11150;
 }
 
 .graph {
@@ -242,7 +242,6 @@ body {
     height: 70vw;
     top: 25vw;
     left: 15vw;
-
 }
 
 #pageFirst {
