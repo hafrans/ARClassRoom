@@ -99,13 +99,13 @@
                         @endif
                     </td>
                     <th>
-                        <b>音频资源</b>
+                        <b>图片资源</b>
                     </th>
                     <td>
                         @if (empty($item->audio_path))
-                            无音频资源
+                            无图片资源
                         @else
-                            <audio type="audio/mp3" controls="controls"
+                            <img style="max-width: 300px; max-height: 300px"
                                    src="{{\Illuminate\Support\Facades\Storage::disk("s3")->temporaryUrl($item->audio_path,now()->addMinutes(10))}}"/>
                         @endif
                     </td>

@@ -108,7 +108,7 @@
                     },
                     {
                         field: "hasAudio",
-                        title: "音频素材",
+                        title: "图片素材",
                         type:"normal",
                         unresize: true,
                         width: 100

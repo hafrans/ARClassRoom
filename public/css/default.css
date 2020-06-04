@@ -142,6 +142,24 @@ body {
     pointer-events: none;
 }
 
+
+.image{
+    display: none;
+}
+
+.image .image-btn{
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    background: center / 70% no-repeat url(../static/img/picture.png);
+    position: fixed;
+    right: 1%;
+    top:5vh;
+    border: 1px whitesmoke solid;
+    box-shadow: 0px 0px 10px 1px #FFFFFE inset;
+    z-index: 150;
+}
+
 .movie {
     display: none;
 }
@@ -204,6 +222,15 @@ body {
     top: 0;
     left: 0;
     z-index: 0
+}
+
+#image{
+    position: absolute;
+    z-index: 1;
+    width: 80vw;
+    height: 80vw;
+    top: 32vw;
+    left: 10vw;
 }
 
 #pageFirst {
@@ -276,6 +303,8 @@ body {
     left: calc( 50vw - 15vh );
     z-index: 999;
 }
+
+
 
 
 #scanline{

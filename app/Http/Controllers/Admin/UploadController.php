@@ -15,7 +15,7 @@ class UploadController extends Controller
     ];
 
     protected $audio_types = [
-        "audio/mpeg", "audio/mp3"
+        "image","image/bmp","image/gif","image/jpeg","image/png"
     ];
 
     protected $model_types = [

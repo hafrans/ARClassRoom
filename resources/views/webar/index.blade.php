@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="Cache-Control" content="max-age=7200" />
     <link rel="stylesheet" href="{{asset("css/default.css",true)}}" />
+    <link rel="stylesheet" href="{{asset("static/jquery-photo-gallery/jquery.js",true)}}" />
+    <link rel="stylesheet" href="{{asset("static/jquery-photo-gallery/jquery.photo.gallery.js",true)}}" />
 </head>
 <body>
 
@@ -46,6 +48,11 @@
     <div id="textcontent">
     <p id="text"></p>
     </div>
+</div>
+
+<div class="image">
+    <div class="image-btn">&nbsp;</div>
+    <img id="image" class="image-content gallery-pic" onclick="$.openPhotoGallery(this)" />
 </div>
 
 

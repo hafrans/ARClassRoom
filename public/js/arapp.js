@@ -5,6 +5,7 @@ const webAR = new WebAR(1000, 'https://cn1-crs.easyar.com:8443/search', 'YaaDJEr
 const threeHelper = new ThreeHelper();
 
 let playFlag = false;
+let imageFlag = false;
 
 let modelFlag = false;
 
@@ -76,8 +77,28 @@ function ARStart(){
                             document.getElementById("movie").setAttribute("src",resp.data.video);
                         }
 
+                        if (resp.data.audio != null){
+                            document.querySelector(".image").style.display = "block";
+                            document.getElementById("image").setAttribute("src",resp.data.audio);
+                        }
+
                         if (!modelFlag){
                             document.getElementById("loading").style.display = "none";
+
+                            if (resp.data.audio != null){
+                                imageFlag = true
+                                document.getElementById("image").style.display = "block";
+                                return true
+                            }
+
+                            if (resp.data.video != null){
+                                playFlag = true
+                                document.getElementById("movie").style.display = "block";
+                                return true
+                            }
+
+
+
                         }
 
 
@@ -137,6 +158,16 @@ document.querySelector(".movie-btn").addEventListener("click",function(){
     playFlag = !playFlag
 },false);
 
+
+document.querySelector(".image-btn").addEventListener("click",function(){
+    if (imageFlag){
+        document.getElementById("image").style.display = "none";
+    }else{
+
+        document.getElementById("image").style.display = "block";
+    }
+    imageFlag = !imageFlag
+},false);
 
 if (false){
 
