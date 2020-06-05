@@ -201,7 +201,7 @@ if (false){
         document.querySelector(".camera-tip").style.display = "none";
         ARStart();
     }).catch((err) => {
-        alert(err)
+        // alert(err)
         if (err.toString().includes("Permission")){
             alert("没有权限");
         }else{
