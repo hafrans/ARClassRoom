@@ -1,5 +1,5 @@
 //             别间隔时间(毫秒), 识别服务地址, 认证token
-const webAR = new WebAR(1000, 'https://cn1-crs.easyar.com:8443/search', 'YaaDJEr0FloGELPWsj1pd/rtSF1hEvteIy24KsDl83OdSO5CYssOIsUb7dxrvrYLJmDbArTNxRMk4zU42tZFCA==');
+const webAR = new WebAR(1000, 'https://cn1-crs.easyar.com:8443/search', 'q21RdAVHluuzerQSkxeNSKldRwhr3CMiA7lV+uURSPjsGom3dI9II1fMrrpBQh3PfLyslQ14Grhhd9fIEmc1sg==');
 // 列出并打开设备上的摄像头
 
 const threeHelper = new ThreeHelper();
@@ -113,19 +113,6 @@ function ARStart(){
 
                         }
 
-
-                        // 可以将 setting 作为meta上传到EasyAR的云识别，使用方法如下
-                        // const setting = JSON.parse(window.atob(msg.target.meta));
-                        // const setting = {
-                        //     video: '//staticfile-cdn.sightp.com/sightp/webar/webardemo-final.mp4',
-                        // };
-                        // const video = document.createElement('video');
-                        // video.setAttribute('controls', 'controls');
-                        // video.setAttribute('playsinline', 'playsinline');
-                        // video.setAttribute('style', 'position:absolute;top:0;left:0;width:100%;height:100%;z-index:99');
-                        // document.body.appendChild(video);
-                        // video.src = setting.video;
-                        // video.play();
                     }
 
 
@@ -144,8 +131,6 @@ function ARStop(){
     webAR.stopRecognize();
 
 }
-
-
 
 document.querySelector('#openCamera').addEventListener('click', function () {
    ARStartCamera().catch((err) =>{
